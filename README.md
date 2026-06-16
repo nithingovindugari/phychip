@@ -33,7 +33,7 @@ The model only improves by producing circuits that **actually simulate and meet 
 ## What's here
 
 - **The environment** — ngspice wrapped as a deterministic reward oracle, with **23 per-circuit measurement harnesses** (102 tests) that measure real figures-of-merit and reject designs that fake them.
-- **Training** — SFT → GRPO (group-relative, no critic) on a small base model with LoRA.
+- **Training** — SFT on ~15K simulator-verified pairs → GRPO (group-relative, no critic; 1,282-spec pool) on a small base model with LoRA.
 - **Two benchmarks** — an in-distribution set and a **contamination-free** set of novel circuit types, with automatic ngspice scoring.
 - **A reward-robustness audit** — adversarial "reward hacks" and the topology guard that defeats them.
 
@@ -41,7 +41,7 @@ The model only improves by producing circuits that **actually simulate and meet 
 
 | Benchmark | What it measures | Best model |
 |---|---|---|
-| **AnalogCoder** (24, external) | textbook circuits | **22/24 (91.7%)** — ahead of much larger open models |
+| **AnalogCoder** (24, external) | textbook circuits | **22/24 (91.7%)** — ahead of much larger open models (gpt-oss-20B: 19/24) |
 | **phy-chip-bench-v1** (40) | in-distribution capability | **19/23** topology |
 | **phy-chip-bench-v2** (50) | generalization to *unseen circuit types* | **only RL generalizes** — base/SFT 0/50, RL ~10/50 |
 

@@ -50,12 +50,13 @@ grading share a single gate implementation so they cannot drift.
 ## 2. Training method
 
 - **Base model:** SmolLM3-3B-Base. **Adapter:** LoRA (rank 16).
-- **Stage 1 — SFT:** supervised fine-tuning on simulator-verified (spec → netlist) pairs;
-  every target netlist passes the ngspice gate before inclusion.
+- **Stage 1 — SFT:** supervised fine-tuning on **~15,000 simulator-verified (spec →
+  netlist) pairs**; every target netlist passes the ngspice gate before inclusion.
 - **Stage 2 — GRPO:** Group-Relative Policy Optimization — group-relative advantage with
-  **no value critic**. Group size K = 8 rollouts per prompt. The KL penalty to the SFT
-  reference is annealed (0.05 → 0.01) so the policy can move off the reference rather than
-  staying pinned to it; this was the change that let RL gains transfer to greedy decoding.
+  **no value critic**, over a **1,282-spec RL pool**. Group size K = 8 rollouts per prompt.
+  The KL penalty to the SFT reference is annealed (0.05 → 0.01) so the policy can move off
+  the reference rather than staying pinned to it; this was the change that let RL gains
+  transfer to greedy decoding.
 
 ![Training dynamics](figures/fig1_training_dynamics.png)
 
@@ -90,8 +91,8 @@ pass@k with 2,000× bootstrap 95% confidence intervals.
 | phy-chip-bench-v1 (40) | GRPO | 20/40 overall; **L1 topology 19/23** |
 | phy-chip-bench-v2 (50) | GRPO | **10/50** (vs base/SFT 0/50) |
 
-The 3B model's 22/24 on AnalogCoder exceeds substantially larger open models. No single
-checkpoint dominates every axis — RL trades reward-distribution specialization across
+The 3B model's 22/24 on AnalogCoder exceeds substantially larger open models (e.g.
+gpt-oss-20B at 19/24). No single checkpoint dominates every axis — RL trades reward-distribution specialization across
 benchmarks — but the GRPO model wins the external benchmarks and is the one to ship.
 
 ![Model comparison matrix](figures/fig8_model_matrix.png)
@@ -140,7 +141,7 @@ prior) and yields a clean prescription: **fine-tune the base model.**
 ## 8. Data efficiency
 
 RLVR is prompt-efficient: the policy explores and re-samples each prompt across many
-rollouts, sharpening latent ability rather than memorizing. A ~1,300-prompt RL pool sits
+rollouts, sharpening latent ability rather than memorizing. The 1,282-prompt RL pool sits
 in the regime shown to be sufficient in the literature (e.g. [LIMR](https://arxiv.org/abs/2502.11886);
 [1-shot RLVR](https://arxiv.org/abs/2504.20571)). The limiting factor for the hardest tier
 is not prompt *count* but prompt *learnability* (§9).
