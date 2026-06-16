@@ -1,0 +1,13 @@
+PhyChip
+Copyright 2026 Nithin Reddy Govindugari
+
+Licensed under the Apache License, Version 2.0 (the "LICENSE" file).
+
+This project builds on:
+- SmolLM3-3B-Base (HuggingFaceTB) — base model.
+- ngspice — circuit simulator (used as the verifiable reward).
+- AnalogCoder — external evaluation benchmark (evaluation only; never used in training).
+
+Training data is drawn only from openly licensed sources (Apache-2.0, MIT, BSD,
+CC-BY / CC-BY-SA / CC-BY-NC / CC-BY-NC-SA, CC0, public domain). Released model
+weights are licensed CC-BY-NC-SA-4.0 (research / educational use).
