@@ -9,7 +9,7 @@ Usage:
     .venv/bin/python athma-train/scripts/train_lora_grpo.py \\
         --base HuggingFaceTB/SmolLM3-3B-Base \\
         --sft-dpo-adapter checkpoints/ablation_C_sft_dpo_lora \\
-        --specs data/rlvr_specs/session_1.jsonl \\
+        --specs data/rlvr_specs_v1/codex_session_1.jsonl \\
         --specs-limit 50 \\
         --out checkpoints/ablation_D_grpo_lora
 """
@@ -118,7 +118,7 @@ def reward_fn(circuit_id: str, target_specs: dict, completion: str) -> float:
         n_total += 1
         try:
             v_meas = float(v_meas)
-            # Window target [lo, hi] (window spec format): full credit inside,
+            # Window target [lo, hi] (codex spec format): full credit inside,
             # graded penalty by distance outside relative to window scale.
             if isinstance(v_target, (list, tuple)) and len(v_target) == 2:
                 lo, hi = float(v_target[0]), float(v_target[1])
@@ -144,7 +144,7 @@ def reward_fn(circuit_id: str, target_specs: dict, completion: str) -> float:
 
 def _anticheat_ok(netlist: str, circuit_id: str) -> bool:
     """Anti-reward-hacking topology guard (Kimi-k1.5 style; found via the
-     adversarial audit). A circuit must contain the real devices that
+    2026-06-14 adversarial audit). A circuit must contain the real devices that
     *compute* its function — not a behavioral source that synthesizes the measured
     FOM directly. Closes the holes the audit found:
       - current-mirror gamed by a CCCS / fixed I-source (no transistor);
@@ -253,9 +253,11 @@ def main() -> int:
     ap.add_argument("--sft-dpo-adapter", required=True,
                     help="Stacked SFT+DPO LoRA adapter — will be merged before GRPO LoRA")
     ap.add_argument("--specs", type=Path,
-                    default=Path("data/rlvr_specs/session_1.jsonl"))
+                    default=Path("data/rlvr_specs_v1/codex_session_1.jsonl"))
     ap.add_argument("--specs-limit", type=int, default=50)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--resume-from", default=None,
+                    help="path to a checkpoint-N dir to resume GRPO from (restores optimizer/scheduler/step)")
     ap.add_argument("--lora-rank", type=int, default=16)
     ap.add_argument("--lora-alpha", type=int, default=32)
     ap.add_argument("--steps", type=int, default=100,
@@ -337,7 +339,31 @@ def main() -> int:
         bias="none", task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_cfg)
+    model.enable_input_require_grads()  # required for gradient_checkpointing on a PEFT model
     model.print_trainable_parameters()
+
+    # --- Stop-token fix (critical): the SFT model ends assistant turns with
+    # <|im_end|>, but the tokenizer's eos is <|end_of_text|>. Without this,
+    # GRPO generation never stops -> every rollout hits max_completion_length,
+    # the netlist never parses, reward=0, advantage variance=0, grad_norm=0
+    # (a silent no-op run). Make both TRL's eos logic and HF generate stop on
+    # <|im_end|> (and keep end_of_text as a fallback eos).
+    _im_end = tok.convert_tokens_to_ids("<|im_end|>")
+    if isinstance(_im_end, int) and _im_end >= 0:
+        _eot = tok.eos_token_id
+        tok.eos_token = "<|im_end|>"          # TRL uses processing_class.eos_token_id
+        if tok.pad_token is None or tok.pad_token_id == _im_end:
+            tok.pad_token_id = _eot           # keep pad != eos
+        _eos_ids = sorted({_im_end, _eot})
+        try:
+            model.generation_config.eos_token_id = _eos_ids
+            model.generation_config.pad_token_id = tok.pad_token_id
+        except Exception as e:
+            print(f"  warn: gen eos set failed: {e}", file=sys.stderr)
+        print(f"  stop-token fix: eos -> <|im_end|>({_im_end}); gen eos_ids={_eos_ids}, "
+              f"pad={tok.pad_token_id}", file=sys.stderr)
+    else:
+        print("  warn: <|im_end|> not in vocab; generation may not terminate", file=sys.stderr)
 
     # Load RLVR specs — expect schema {circuit_id, spec_prompt, target_measurements}
     from datasets import Dataset
@@ -356,14 +382,35 @@ def main() -> int:
                 specs.append({"circuit_id": cid, "prompt": prompt, "targets": targets})
     specs = specs[:args.specs_limit]
     print(f"  using {len(specs)} specs", file=sys.stderr)
-    # Conversational prompt format: GRPOTrainer auto-applies chat_template at
-    # generation time, matching the chat-formatted distribution the SFT adapter
-    # was trained on.
-    ds = Dataset.from_list([{
-        "prompt": [{"role": "user", "content": s["prompt"]}],
-        "circuit_id": s["circuit_id"],
-        "targets": json.dumps(s["targets"]),
-    } for s in specs])
+    # Prompt format. Default = conversational (chat_template). But the SFT model
+    # terminates cleanly + emits parseable netlists in COMPLETION format (the
+    # format its eval scored 26/46 in); in chat format at temp>0 it rambles to
+    # max_completion_length (clipped_ratio=1, 0 terminated, reward=0, grad_norm=0
+    # -> no-op). PHYCHIP_GRPO_COMPLETION_FMT=1 uses the completion prompt that
+    # primes a direct netlist and stops at the netlist's stop token.
+    import os as _os0
+    _COMPL = _os0.environ.get("PHYCHIP_GRPO_COMPLETION_FMT") == "1"
+    _CTMPL = ("{spec}\n\nOutput your complete ngspice netlist between ```spice and "
+              "``` fences. Include device lines, an analysis directive (.op/.tran/.ac "
+              "inside a .control/.endc block), and end with .end.\n\n```spice\n")
+    if _COMPL:
+        ds = Dataset.from_list([{
+            "prompt": _CTMPL.format(spec=s["prompt"]),
+            "circuit_id": s["circuit_id"],
+            "targets": json.dumps(s["targets"]),
+        } for s in specs])
+        # NOTE: tried generation_config.stop_strings=['.end','```'] to terminate
+        # rollouts — but TRL GRPO doesn't pass a tokenizer to generate, so it raises
+        # ("could not locate a tokenizer"). Instead we rely on mask_truncated_completions
+        # =False (below): completions clip at max_len but, unmasked, still contribute
+        # their (valid-netlist) reward to the gradient.
+        print("  prompt format: COMPLETION (primes direct netlist; no stop-string, mask off)", file=sys.stderr)
+    else:
+        ds = Dataset.from_list([{
+            "prompt": [{"role": "user", "content": s["prompt"]}],
+            "circuit_id": s["circuit_id"],
+            "targets": json.dumps(s["targets"]),
+        } for s in specs])
 
     # Reward function (TRL signature). PHYCHIP_REWARD=v2 -> spec-dominant,
     # tolerance-aligned reward (the L2/L3-wall lever; ~1.9x sharper spec contrast).
@@ -385,6 +432,12 @@ def main() -> int:
         comp, cid, tgt_json = item
         if isinstance(comp, list):  # list of {"role":"assistant","content":...}
             comp = comp[-1].get("content", "") if comp else ""
+        # COMPLETION-FORMAT FIX: the prompt primed the opening ```spice fence, so the
+        # model's completion starts at the netlist and lacks it. reward_fn_v2 requires
+        # a ```spice...``` block (has_spice_block) -> would score every valid netlist 0.
+        # Re-add the opening fence so scoring matches (verified: 0.0 -> 0.3-0.55).
+        if _COMPL and isinstance(comp, str) and "```spice" not in comp:
+            comp = "```spice\n" + comp.rstrip() + "\n```"  # add BOTH fences (clean-stopped netlist has neither)
         try:
             tgt = json.loads(tgt_json) if isinstance(tgt_json, str) else (tgt_json or {})
         except json.JSONDecodeError:
@@ -401,7 +454,7 @@ def main() -> int:
         return [_score_one(it) for it in items]
 
     # TRL 1.5.1: GRPOConfig has max_completion_length but not max_prompt_length.
-    cfg = GRPOConfig(
+    cfg_kwargs = dict(
         output_dir=str(args.out),
         per_device_train_batch_size=args.bs,
         num_generations=args.rollouts_per_step,
@@ -416,6 +469,41 @@ def main() -> int:
         report_to="wandb" if not args.no_wandb else "none",
         seed=args.seed,
     )
+    # gradient_checkpointing is OFF by default: with this PEFT+merge_and_unload
+    # setup it zeroed the gradient (grad_norm=0, silent no-op). Re-enable only via
+    # PHYCHIP_GRAD_CKPT=1 if memory forces it (then prefer smaller K/bs first).
+    if _os.environ.get("PHYCHIP_GRAD_CKPT") == "1":
+        cfg_kwargs["gradient_checkpointing"] = True
+        cfg_kwargs["gradient_checkpointing_kwargs"] = {"use_reentrant": False}
+    # --- 2026 RLVR recipe, env-gated so default behavior is unchanged ---
+    # PHYCHIP_GRPO_RECIPE=modern enables: Dr.GRPO (no std-norm) + DAPO loss
+    # (token-level + asymmetric clip) + dynamic sampling (drop all-same groups).
+    # Each is also individually overridable. Levers only applied if the installed
+    # TRL's GRPOConfig accepts them (introspected) so we never crash on version skew.
+    import inspect as _inspect
+    _gc_params = set(_inspect.signature(GRPOConfig.__init__).parameters)
+    if _os.environ.get("PHYCHIP_GRPO_RECIPE") == "modern":
+        _wanted = dict(
+            scale_rewards=False,          # Dr.GRPO: drop std-normalization bias
+            loss_type="dapo",             # token-level loss aggregation
+            epsilon_high=0.28,            # DAPO asymmetric clip (preserve exploration)
+            # In completion format the model emits a complete netlist then rambles
+            # (no <|im_end|>), so completions "clip" at max_len -> masking them ALL
+            # zeroes the gradient despite real reward variance. Don't mask in COMPL.
+            mask_truncated_completions=(not _COMPL),
+        )
+        for _k, _v in _wanted.items():
+            if _k in _gc_params:
+                cfg_kwargs[_k] = _v
+            else:
+                print(f"  (TRL lacks GRPOConfig.{_k}; skipped)", file=sys.stderr)
+    # individual overrides (e.g. PHYCHIP_GRPO_SCALE_REWARDS=0)
+    if "PHYCHIP_GRPO_SCALE_REWARDS" in _os.environ and "scale_rewards" in _gc_params:
+        cfg_kwargs["scale_rewards"] = _os.environ["PHYCHIP_GRPO_SCALE_REWARDS"] not in ("0", "false", "False")
+    cfg = GRPOConfig(**cfg_kwargs)
+    print(f"  GRPOConfig recipe: scale_rewards={cfg_kwargs.get('scale_rewards', True)} "
+          f"loss_type={cfg_kwargs.get('loss_type','grpo')} beta(KL)={args.kl_coef} "
+          f"K={args.rollouts_per_step}", file=sys.stderr)
     # Optional: Microsoft post-training-toolkit diagnostics (GRPO group
     # rewards / advantages / KL, crash postmortem). Never breaks the run.
     callbacks = []
@@ -432,7 +520,11 @@ def main() -> int:
         processing_class=tok,
         callbacks=callbacks or None,
     )
-    trainer.train()
+    if args.resume_from:
+        print(f"  RESUMING GRPO from {args.resume_from}", file=sys.stderr)
+        trainer.train(resume_from_checkpoint=args.resume_from)
+    else:
+        trainer.train()
     trainer.save_model(str(args.out))
     tok.save_pretrained(str(args.out))
 

@@ -10,7 +10,7 @@ The train-time gate and eval-time gate MUST be identical, otherwise:
   - Model gets surprising eval numbers
 This module enforces that invariant.
 
-v2  updates over v1:
+v2 (2026-05-15) updates over v1:
   - Accept `.control / op / .endc` block syntax (Humphery7 dataset uses this)
   - Strip Humphery7-style tokenization (<NETLIST>, <NL>, <END_NETLIST>)
 """
@@ -24,7 +24,7 @@ import tempfile
 import warnings
 from pathlib import Path
 
-# --- ngspice version guard  ---------------------------------
+# --- ngspice version guard (bug 2026-06-12) ---------------------------------
 # AnalogCoder pass@1 is highly sensitive to the ngspice version: the SAME
 # adapter scored 0/24 on ngspice-36 (Ubuntu apt default) and 16/24 on
 # ngspice-46. Comparing scores across versions produced a FALSE "GRPO degrades
@@ -49,13 +49,13 @@ def _check_ngspice_version() -> None:
     if want and got != want:
         raise RuntimeError(
             f"ngspice version mismatch: found {got}, PHYCHIP_REQUIRE_NGSPICE={want}. "
-            f"Eval scores are version-sensitive. "
+            f"Eval scores are version-sensitive (see EVAL_ENV_BUG_2026-06-12.md). "
             f"Build ngspice {want} from source; apt ships an old version.")
     if got in ("36", "unknown", "unavailable") and not want:
         warnings.warn(
             f"ngspice version is {got}; AnalogCoder scores are version-sensitive. "
             f"Pin PHYCHIP_REQUIRE_NGSPICE=46 for comparable results "
-            f"(see ).", RuntimeWarning)
+            f"(see EVAL_ENV_BUG_2026-06-12.md).", RuntimeWarning)
 
 
 DEVICE_PREFIXES = ("r", "c", "l", "m", "q", "d", "v", "i", "x", "j")

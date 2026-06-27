@@ -2,7 +2,7 @@
 """LoRA SFT trainer for ablation condition B (and E's chained SFT step).
 
 Trains a LoRA adapter on top of SmolLM3-3B-Base (or another base) using
-data/final_data/sft_v0/*.jsonl. Logs to W&B project phy-chip-ablation.
+data/final_data/sft_v0/*.jsonl. Logs to W&B project phy-chip-ablation-2026-06.
 
 Usage:
     # Condition B: base → LoRA SFT
@@ -98,11 +98,14 @@ def main() -> int:
             print(f"  loaded chat_template from SmolLM3-3B (instruct)", file=sys.stderr)
         except Exception as e:
             print(f"  warn: couldn't load instruct chat_template: {e}; falling back to simple format", file=sys.stderr)
+            # NOTE: includes a {% generation %} block so assistant_only_loss works
+            # (the loss mask is derived from these keywords).
             tok.chat_template = (
                 "{% for m in messages %}"
                 "{% if m['role'] == 'system' %}<|system|>\n{{ m['content'] }}<|end|>\n"
                 "{% elif m['role'] == 'user' %}<|user|>\n{{ m['content'] }}<|end|>\n"
-                "{% elif m['role'] == 'assistant' %}<|assistant|>\n{{ m['content'] }}<|end|>\n"
+                "{% elif m['role'] == 'assistant' %}<|assistant|>\n"
+                "{% generation %}{{ m['content'] }}<|end|>{% endgeneration %}\n"
                 "{% endif %}{% endfor %}"
             )
     # DDP-safe device map: under torchrun, each rank loads to its assigned GPU.
@@ -136,6 +139,7 @@ def main() -> int:
     files = sorted(glob.glob(str(args.data / "*.jsonl")))
     print(f"Loading SFT data: {len(files)} files (manual JSON load)", file=sys.stderr)
     rows = []
+    n_text_only = 0
     for f in files:
         with open(f) as fh:
             for line in fh:
@@ -145,11 +149,17 @@ def main() -> int:
                     continue
                 msgs = row.get("messages")
                 if msgs:
-                    rows.append({"text": tok.apply_chat_template(msgs, tokenize=False)})
+                    # Keep conversational structure so SFTTrainer can apply the
+                    # chat template AND compute the assistant-only loss mask.
+                    # (Previously we pre-rendered to {"text": ...}, which threw the
+                    # mask away and trained on prompt tokens too — see
+                    # scripts/verify_sft_masking.py.)
+                    rows.append({"messages": msgs})
                 elif row.get("text"):
-                    rows.append({"text": row["text"]})
+                    n_text_only += 1  # legacy text-only rows can't be assistant-masked; skipped
     ds = Dataset.from_list(rows)
-    print(f"  loaded {len(ds):,} examples", file=sys.stderr)
+    print(f"  loaded {len(ds):,} conversational examples"
+          f" ({n_text_only} text-only rows skipped — not assistant-maskable)", file=sys.stderr)
 
     # --- Train ---
     cfg = SFTConfig(
@@ -166,8 +176,13 @@ def main() -> int:
         report_to="wandb" if not args.no_wandb else "none",
         run_name=os.environ.get("WANDB_RUN_NAME"),
         seed=args.seed,
-        packing=True,
-        dataset_text_field="text",
+        # --- assistant-only loss (the masking fix) ---
+        # Train ONLY on assistant tokens (the netlist + reasoning); mask the
+        # system+user prompt. Requires the chat template's {% generation %} block
+        # (SmolLM3's instruct template has it). packing=False because per-example
+        # masking is incompatible with sequence packing in TRL.
+        assistant_only_loss=True,
+        packing=False,
     )
     trainer = SFTTrainer(model=model, args=cfg, train_dataset=ds, processing_class=tok)
     trainer.train()
