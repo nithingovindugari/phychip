@@ -117,3 +117,18 @@ def test_idempotent():
         if a[key] is None and b[key] is None:
             continue
         assert abs((a[key] or 0) - (b[key] or 0)) < 1e-9, key
+
+
+def test_common_mode_range_is_not_copied_from_requested_sweep(monkeypatch):
+    monkeypatch.setattr(
+        module,
+        "_run_ngspice",
+        lambda _deck, _timeout: "__op_offset__\nv(vout) = 0.001\nNo. of Data Rows : 1\n",
+    )
+
+    result = measure(
+        "Vin Vsense_p Vsense_n AC 1\nR1 Vsense_p Vout 1k\n.op\n.end",
+        spec={"cm_min_v": 12.0, "cm_max_v": 48.0},
+    )
+
+    assert result["common_mode_range_v"] is None

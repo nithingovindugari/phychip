@@ -122,3 +122,15 @@ def test_marginal_and_low_bw_netlists_extract_transimpedance():
     low_bw = measure(LOW_BW_NETLIST)
     assert marginal["transimpedance_v_per_a"] is not None
     assert low_bw["transimpedance_v_per_a"] is not None
+
+
+def test_missing_bandwidth_crossing_fails_closed(monkeypatch):
+    monkeypatch.setattr(
+        module,
+        "_run_ngspice",
+        lambda _deck, _timeout: "transimpedance_v_per_a = 47000\nNo. of Data Rows : 3\n",
+    )
+
+    result = measure("Iin I_pd 0 AC 1\nRf Vout I_pd 47k\n.op\n.end")
+
+    assert result["bandwidth_hz"] is None

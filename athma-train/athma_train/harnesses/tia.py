@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.harnesses._measure_utils import (
     has_prepared_device_line,
@@ -106,25 +103,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:
@@ -202,15 +187,12 @@ def measure(
         stdout = _run_ngspice(_build_deck(netlist, spec), timeout_s)
         if stdout == "__FAILED__":
             return _none_result()
-        has_data = _has_analysis_data(stdout)
         result = {fom: _parse_meas(stdout, fom) for fom in FOM_NAMES}
         result["bandwidth_hz"] = three_db_frequency_hz(
             stdout,
             is_db=False,
             marker="__ac_bw__",
         )
-        if result["bandwidth_hz"] is None and has_data:
-            result["bandwidth_hz"] = 1.0e8
         result["input_noise_a_per_rthz"] = _parse_first_noise(stdout)
         result["stability_phase_margin_deg"] = _parse_phase_margin(stdout)
         return result

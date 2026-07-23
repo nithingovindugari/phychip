@@ -100,7 +100,8 @@ def test_metadata():
 def test_good_netlist_extracts_per_input_gains():
     result = measure(GOOD_NETLIST)
 
-    assert set(result.keys()) == set(FOM_NAMES)
+    assert set(FOM_NAMES).issubset(result)
+    assert all(result[f"signed_gain_v{index}_vv"] < 0 for index in (1, 2, 3))
     assert result["gain_v1_db"] is not None
     assert result["gain_v2_db"] is not None
     assert result["gain_v3_db"] is not None
@@ -112,7 +113,8 @@ def test_good_netlist_extracts_per_input_gains():
 def test_marginal_netlist_extracts_weighted_gains():
     result = measure(MARGINAL_NETLIST)
 
-    assert set(result.keys()) == set(FOM_NAMES)
+    assert set(FOM_NAMES).issubset(result)
+    assert all(result[f"signed_gain_v{index}_vv"] < 0 for index in (1, 2, 3))
     assert result["gain_v1_db"] is not None
     assert result["gain_v2_db"] is not None
     assert result["gain_v3_db"] is not None

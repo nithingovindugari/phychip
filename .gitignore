@@ -1,13 +1,224 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Envs — broad match for any virtualenv the agents create
 .venv/
 .venv_*/
+venv/
+.env
+.env.*
+!.env.example
+
+# Editors
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Training artifacts
+checkpoints/
+runs/
+wandb/
+outputs/
+logs/
+*.ckpt
 *.safetensors
 *.bin
 *.pt
 *.pth
-data/
-checkpoints/
-wandb/
-.env
-.DS_Store
+
+# Data — never commit
+data/raw/
+data/processed/
+data/tokenized/
+data/synthetic/
+*.parquet
+*.arrow
+*.jsonl.gz
+
+# Caches
+.cache/
+hf_cache/
+torch_compile_cache/
+
+# Submodules' build artifacts
+third_party/*/build/
+third_party/*/dist/
+
+# someday/ — local-only stash of aspirational scaffold. Preserved on disk for
+# easy revival (mv someday/<path> <path>) but NOT tracked in git to keep the
+# history clean. Index of what's in there lives at someday.md (which IS tracked).
+someday/
+
+# poc_experiments — throwaway artifacts, except docs + harness code
+poc_experiments/.env
+poc_experiments/.venv*/
+poc_experiments/runs/
+poc_experiments/checkpoints/
+poc_experiments/outputs/
+poc_experiments/results/*.jsonl
+poc_experiments/results/*.parquet
+# Scratch work-dirs from harness/eval runs (per-task figures, intermediate scripts)
+poc_experiments/results/*_workdir/
+# (everything else under poc_experiments/results/ is kept — it's the research output)
+# (poc_experiments/ml_intern_brief.md, README.md, scripts/ are kept)
+athma-train/data/holdout/HOLDOUT_MANIFEST.md
+athma-train/data/holdout/sky130_50/sky130_000.cir
+athma-train/data/holdout/sky130_50/sky130_001.cir
+athma-train/data/holdout/sky130_50/sky130_002.cir
+athma-train/data/holdout/sky130_50/sky130_003.cir
+athma-train/data/holdout/sky130_50/sky130_004.cir
+athma-train/data/holdout/sky130_50/sky130_005.cir
+athma-train/data/holdout/sky130_50/sky130_006.cir
+athma-train/data/holdout/sky130_50/sky130_007.cir
+athma-train/data/holdout/sky130_50/sky130_008.cir
+athma-train/data/holdout/sky130_50/sky130_009.cir
+athma-train/data/holdout/sky130_50/sky130_010.cir
+athma-train/data/holdout/sky130_50/sky130_011.cir
+athma-train/data/holdout/sky130_50/sky130_012.cir
+athma-train/data/holdout/sky130_50/sky130_013.cir
+athma-train/data/holdout/sky130_50/sky130_014.cir
+athma-train/data/holdout/sky130_50/sky130_015.cir
+athma-train/data/holdout/sky130_50/sky130_016.cir
+athma-train/data/holdout/sky130_50/sky130_017.cir
+athma-train/data/holdout/sky130_50/sky130_018.cir
+athma-train/data/holdout/sky130_50/sky130_019.cir
+athma-train/data/holdout/sky130_50/sky130_020.cir
+athma-train/data/holdout/sky130_50/sky130_021.cir
+athma-train/data/holdout/sky130_50/sky130_022.cir
+athma-train/data/holdout/sky130_50/sky130_023.cir
+athma-train/data/holdout/sky130_50/sky130_024.cir
+athma-train/data/holdout/sky130_50/sky130_025.cir
+athma-train/data/holdout/sky130_50/sky130_026.cir
+athma-train/data/holdout/sky130_50/sky130_027.cir
+athma-train/data/holdout/sky130_50/sky130_028.cir
+athma-train/data/holdout/sky130_50/sky130_029.cir
+athma-train/data/holdout/sky130_50/sky130_030.cir
+athma-train/data/holdout/sky130_50/sky130_031.cir
+athma-train/data/holdout/sky130_50/sky130_032.cir
+athma-train/data/holdout/sky130_50/sky130_033.cir
+athma-train/data/holdout/sky130_50/sky130_034.cir
+athma-train/data/holdout/sky130_50/sky130_035.cir
+athma-train/data/holdout/sky130_50/sky130_036.cir
+athma-train/data/holdout/sky130_50/sky130_037.cir
+athma-train/data/holdout/sky130_50/sky130_038.cir
+athma-train/data/holdout/sky130_50/sky130_039.cir
+athma-train/data/holdout/sky130_50/sky130_040.cir
+athma-train/data/holdout/sky130_50/sky130_041.cir
+athma-train/data/holdout/sky130_50/sky130_042.cir
+athma-train/data/holdout/sky130_50/sky130_043.cir
+athma-train/data/holdout/sky130_50/sky130_044.cir
+athma-train/data/holdout/sky130_50/sky130_045.cir
+athma-train/data/holdout/sky130_50/sky130_046.cir
+athma-train/data/holdout/sky130_50/sky130_047.cir
+athma-train/data/holdout/sky130_50/sky130_048.cir
+athma-train/data/holdout/sky130_50/sky130_049.cir
+
+# === 2026-05-24 additions ===
+# Pre-scrub backups (we have provenance in progress.md, no need to ship raw)
+data/final_data/sft_v0/_pre_scrub_backup_*/
+# Codex staging dir — duplicates of what got promoted to final_data/sft_v0/
+data/sft_v0_codex_only/
+# Codex CLI session logs — verbose, useful locally for forensics only
+logs/codex_*.log
+# Legacy claude-teacher staging (rows already promoted to final_data/sft_v0/)
+data/sft_v0_agents/
+.claude/scheduled_tasks.lock
+.prime_pod_id
+.runpod_pod_v3
+
+# === 2026-06-01 additions ===
+# Failed pod attempt detritus (lessons #77-#85; logs+progress.md preserve context)
+data/stage1_corpus_corrupt_attempt*/
+data/stage1_corpus_recovered/
+data/stage1_corpus_pod_backup/
+data/stage1_corpus_partial/
+data/stage1_smoke*/
+data/stage1_test*/
+# Build outputs (regenerable from athma-train/scripts/build_stage1_corpus.py)
+data/stage1_corpus/
+data/stage2_corpus/
+# Raw Stage 2 download archives (re-pullable from HF)
+data/osiris_raw/
+# Pre-flattened intermediates (re-pullable + idempotent regen)
+data/hf_cache/_to_delete/
+# Long-form gpt55 staging (already promoted to final_data/)
+data/sft_v0_gpt55_long/
+# Hardcase staging (rows already promoted to final_data/sft_v0/)
+data/sft_v0_hardcase/
+# Background process PID files
+.stage1_build_pid
+athma-frontend/.athma_frontend_pid
+# SFT v1 supplement scratch
+data/sft_v1_supplement/
+
+# --- session additions (2026-06-15): datasets live on HF, not git; temp/trash excluded ---
+data/_to_delete/
+data/_trash_*/
+data/_validation/
+data/final_data_clean/
+data/sft_medium/
+data/sft_multispec/
+data/sft_multispec_claude/
+data/sft_v0/
+data/sft_v0_agents/
+data/sft_v0_codex_only/
+data/sft_v0_gpt55_long/
+data/sft_v0_hardcase/
+data/sft_v0_merged/
+data/sft_v1_supplement/
+data/sft_v1_failures.jsonl
+data/rlvr_specs_v1/
+_wandb_sync/
+wandb_pod/
+data/final_data_b_core/
+
+# --- heavy artifacts (reproducible via build scripts / on HF; keep git lean) ---
+final_artifacts/
+eval_results/*_completion.json
+eval_results/grpo_rollout_diag_completion.json
+session_*_transcript.md
+session_*_prompts.md
+data/rft_sft_v0/
+data/sft_seed_v0/
+data/rlvr_specs_v2_verified/
+data/*.jsonl
+plan/*.bak
+*.bak
+
+# --- 2026-07-22 private-repo cleanup ---
+# Current policy-label/data artifacts are content-addressed in release and
+# research records but remain local/HF assets.  Do not turn the source repo
+# into an artifact store or publish full generated training rows.
+data/dataset_v3_verified_v1/
+data/final_data/sft_v0_verified_v1/
+data/rlvr_grpo_powered_v1/
+data/rlvr_rank64_smoke_v1/
+data/rlvr_candidates_v*/
+
+# Full evaluation/rollout trees contain rebuildable completions and logs.
+# Small, reviewed release evidence can be force-added explicitly when needed.
+eval_results/dataset_validation/
+eval_results/grpo_powered_v1/
+eval_results/grpo_powered_v2/
+eval_results/grpo_rank64_smoke_v1/
+eval_results/grpo_v3_corrected/
+eval_results/qwen35_4b_challenger_v1/
+eval_results/sft_clean_v1/
+eval_results/sft_clean_v1_matched_16384/
+eval_results/sft_dynamic_gate_v1/
+eval_results/grpo_trainpool/grpo_run.log
+
+# Local review inputs, not project source.
+image.png
+rl_book.txt

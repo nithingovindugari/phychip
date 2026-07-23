@@ -19,6 +19,7 @@ FOM_NAMES = module.FOM_NAMES
 SPEC_UNITS = module.SPEC_UNITS
 TIER = module.TIER
 measure = module.measure
+_find_load_ohm = module._find_load_ohm
 
 
 GOOD_NETLIST = """
@@ -120,3 +121,8 @@ def test_idempotent():
         if a[key] is None and b[key] is None:
             continue
         assert abs((a[key] or 0) - (b[key] or 0)) < 1e-9, key
+
+
+def test_efficiency_load_is_derived_from_simulated_branch_not_requested_spec():
+    assert _find_load_ohm("Rload Vout 0 5", {"load_ohm": 1.0}) == 5.0
+    assert _find_load_ohm("Rother Vin 0 5", {"load_ohm": 1.0}) is None

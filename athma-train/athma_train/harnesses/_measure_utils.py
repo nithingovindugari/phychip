@@ -24,7 +24,12 @@ _INJECTED_SKIP_DIRECTIVES = (
 
 def prepare_injected_netlist(user_netlist: str) -> str:
     nl = normalize_netlist(user_netlist)
-    nl = re.sub(r"\.control\b.*?\.endc\b", "", nl, flags=re.DOTALL | re.IGNORECASE)
+    nl = re.sub(
+        r"(?m)^[ \t]*\.control\b.*?^[ \t]*\.endc\b[^\r\n]*(?:\r?\n|$)",
+        "",
+        nl,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
     nl = re.sub(r"\.end\s*$", "", nl, flags=re.IGNORECASE).rstrip()
     kept: list[str] = []
     for line in nl.splitlines():

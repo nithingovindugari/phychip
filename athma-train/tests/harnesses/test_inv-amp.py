@@ -88,7 +88,8 @@ def test_metadata():
 
 def test_good_netlist_extracts_all_foms():
     result = measure(GOOD_NETLIST)
-    assert set(result.keys()) == set(FOM_NAMES)
+    assert set(FOM_NAMES).issubset(result)
+    assert result["signed_gain_vv"] < 0
     non_none = [v for v in result.values() if v is not None]
     assert len(non_none) >= 2
 

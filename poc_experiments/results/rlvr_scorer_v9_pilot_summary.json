@@ -1,0 +1,51 @@
+{
+  "schema": "phychip-rlvr-pilot-summary-v1",
+  "date": "2026-07-22",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "contract": {
+    "k": 8,
+    "spec_count": 48,
+    "rollout_count": 384,
+    "evaluation_blind_references": true,
+    "optimizer_steps": 0
+  },
+  "results": {
+    "exact_successes": 18,
+    "mixed_prompts": 11,
+    "zero_success_prompts": 37,
+    "easy_prompts": 0,
+    "mixed_families": 7,
+    "anticheat_blocked_rollouts": 181,
+    "assistant_eos_rollouts": 382,
+    "capped_rollouts": 2
+  },
+  "mixed_family_counts": {
+    "diff-pair": 1,
+    "differentiator": 1,
+    "integrator": 1,
+    "inv-amp": 2,
+    "noninv-amp": 1,
+    "sallen-key": 3,
+    "summing-amp": 2
+  },
+  "manual_audit": {
+    "all_v8_rollouts_reviewed": 384,
+    "v9_group_winners_reviewed": 33,
+    "v9_exact_rows_reviewed": 18,
+    "known_invalid_v8_rows_on_v9_frontier": 0,
+    "pilot_gate_passed": true
+  },
+  "private_evidence_sha256": {
+    "aggregate_audit": "7372a282b17f299a289d76bbed4161e897903071019ef19c74f01c04bff861f5",
+    "manual_review_queue": "70ed05ad6dc8b966547714b528f10fd3214c56dbe6921f956283621762246206",
+    "rescored_rollouts": "d44caf212ea05b20fd55b225d00e00808f859c29cf6ad7b789b0554ddada112e"
+  },
+  "decision": {
+    "pilot_data_contract_validated": true,
+    "sufficient_for_decisive_grpo_training": false,
+    "next_reference_target": [
+      150,
+      250
+    ]
+  }
+}

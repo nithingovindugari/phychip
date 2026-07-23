@@ -82,7 +82,13 @@ BROKEN_NETLIST = "this is not spice"
 def test_metadata():
     assert CIRCUIT_ID == "gain-trim"
     assert TIER == 1
-    assert FOM_NAMES == ("gain_db", "offset_v", "trim_range_v", "bandwidth_hz")
+    assert FOM_NAMES == (
+        "gain_db",
+        "offset_v",
+        "trim_range_v",
+        "bandwidth_hz",
+        "gain_modulation_db",
+    )
     assert set(SPEC_UNITS) == set(FOM_NAMES)
 
 
@@ -93,6 +99,7 @@ def test_good_netlist_extracts_all_foms():
     assert result["gain_db"] > 30
     assert result["trim_range_v"] > 0.5
     assert result["bandwidth_hz"] > 1e6
+    assert result["gain_modulation_db"] >= 0.0
 
 
 def test_marginal_netlist_extracts_partial_foms():

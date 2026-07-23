@@ -1,11 +1,11 @@
-# Minimal pyproject.toml — only what's needed to run the SpiceEnv unit tests.
+# Minimal pyproject.toml for the training pipeline and verifier tests.
 # The full version (with optional-dependencies for nanotron/TRL/veRL/etc.) is
 # preserved at someday/athma-train/pyproject.toml.original for when training starts.
 
 [project]
 name = "athma-train"
 version = "0.0.1"
-description = "PhyChip training pipeline — currently only the SpiceEnv reward layer is implemented."
+description = "PhyChip training pipeline and canonical ngspice RLVR scorer."
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 license = { text = "Apache-2.0" }
@@ -38,3 +38,4 @@ target-version = "py310"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+norecursedirs = ["_quarantine_template"]

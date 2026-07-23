@@ -1,0 +1,20 @@
+FROM python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PHYCHIP_REQUIRE_NGSPICE=46 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /opt/phy-chip-env
+COPY scripts/install_ngspice46.sh /tmp/install_ngspice46.sh
+RUN bash /tmp/install_ngspice46.sh && rm /tmp/install_ngspice46.sh
+
+COPY . /opt/phy-chip-env
+RUN python -m pip install --no-cache-dir . && \
+    phy-chip-env doctor >/opt/phy-chip-env-runtime.json
+
+RUN useradd --create-home --uid 10001 phychip
+USER phychip
+WORKDIR /work
+ENTRYPOINT ["phy-chip-env"]
+CMD ["doctor"]

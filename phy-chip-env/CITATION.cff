@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use phy-chip-env, cite the PhyChip v0.1 technical note."
+title: "phy-chip-env: Verifiable Rewards from an Analog Circuit Simulator"
+type: software
+authors:
+  - family-names: Reddy
+    given-names: Nithin
+version: 0.1.0
+date-released: 2026-07-21
+license: Apache-2.0
+repository-code: "https://github.com/NithinReddyG/phy-chip"

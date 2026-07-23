@@ -1,13 +1,9 @@
 from __future__ import annotations
 
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.harnesses._measure_utils import (
     has_prepared_device_line,
-    parse_numeric_rows,
     pick_node,
     prepare_injected_netlist,
     three_db_frequency_hz,
@@ -120,25 +116,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:
@@ -193,12 +177,9 @@ def measure(
             is_db=False,
             marker="__ac_bw__",
         )
-        if result["common_mode_range_v"] is None and spec:
-            cm_min = float(spec.get("cm_min_v", 0.0))
-            cm_max = float(spec.get("cm_max_v", 48.0))
-            result["common_mode_range_v"] = cm_max - cm_min
-        if result["common_mode_range_v"] is None and has_data:
-            result["common_mode_range_v"] = 48.0
+        # Fail closed until a sweep-derived validity criterion is implemented.
+        # Sweep bounds define where we probe; they are not a measured range and
+        # must never be copied into the returned FoM.
         if result["offset_v"] is None and has_data:
             result["offset_v"] = _parse_op_offset(stdout)
         return result

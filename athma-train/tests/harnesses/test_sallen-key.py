@@ -22,6 +22,7 @@ FOM_NAMES = module.FOM_NAMES
 SPEC_UNITS = module.SPEC_UNITS
 TIER = module.TIER
 measure = module.measure
+_parse_filter = module._parse_filter
 
 
 GOOD_NETLIST = """
@@ -99,3 +100,30 @@ def test_idempotent():
         if a[key] is None and b[key] is None:
             continue
         assert abs((a[key] or 0) - (b[key] or 0)) < 1e-9, key
+
+
+def test_measured_cutoff_is_invariant_to_requested_target():
+    """The requested spec may choose a stopband probe, never the measured FoM."""
+    stdout = """
+__ac_filter__
+0 100 0 -10
+1 1000 -3 -90
+2 10000 -20 -150
+3 100000 -40 -175
+"""
+
+    low_target = _parse_filter(stdout, {"cutoff_hz": [3000.0, 4000.0]})
+    high_target = _parse_filter(stdout, {"cutoff_hz": [10000.0, 12000.0]})
+
+    assert low_target["cutoff_hz"] == high_target["cutoff_hz"]
+    assert abs((low_target["cutoff_hz"] or 0.0) - 1000.0) < 1e-9
+
+
+def test_simulated_cutoff_is_not_copied_from_requested_target():
+    low_target = measure(GOOD_NETLIST, spec={"cutoff_hz": [500.0, 1500.0]})
+    high_target = measure(GOOD_NETLIST, spec={"cutoff_hz": [3000.0, 4000.0]})
+
+    assert low_target["cutoff_hz"] is not None
+    assert high_target["cutoff_hz"] is not None
+    assert abs(low_target["cutoff_hz"] - high_target["cutoff_hz"]) < 1e-9
+    assert abs(high_target["cutoff_hz"] - 3500.0) > 1e-6

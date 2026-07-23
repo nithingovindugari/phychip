@@ -1,0 +1,15 @@
+phy-chip-env
+Copyright 2026 Nithin Reddy
+
+This product is licensed under the Apache License, Version 2.0.
+
+ngspice is an external system dependency. It is not copied into the Python
+wheel. The reproducibility scripts download and build ngspice 46 from the
+official ngspice SourceForge release. ngspice is developed by the ngspice team
+from Berkeley SPICE and is distributed under its own notices and license terms.
+See https://ngspice.sourceforge.io/ for those terms.
+
+The circuit harness implementations and authored test fixtures in this package
+were extracted from the PhyChip/athma-train research code and are released here
+under Apache-2.0. No model weights, training corpus rows, private generations,
+or benchmark records are included in the wheel.

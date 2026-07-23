@@ -2,9 +2,6 @@ from __future__ import annotations
 
 import math
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.harnesses._measure_utils import interpolate_crossing_hz, parse_numeric_rows
 from athma_train.harnesses._measure_utils import has_prepared_device_line, prepare_injected_netlist
@@ -87,25 +84,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:
@@ -143,15 +128,17 @@ def _parse_filter(stdout: str, spec: dict[str, float] | None) -> dict[str, float
     gain_points = [(row[0], row[1]) for row in rows if row[0] > 0.0]
     phase_points = [(row[0], row[2]) for row in rows if row[0] > 0.0]
     dc_gain = gain_points[0][1] if gain_points else None
-    cutoff = None
+    measured_cutoff = None
     natural = None
     q_factor = None
     stopband = None
     if dc_gain is not None:
-        cutoff = interpolate_crossing_hz(gain_points, dc_gain - 3.0, direction="fall")
+        measured_cutoff = interpolate_crossing_hz(
+            gain_points, dc_gain - 3.0, direction="fall"
+        )
     natural = interpolate_crossing_hz(phase_points, -90.0, direction="fall")
-    if cutoff is not None and natural not in (None, 0.0):
-        cutoff_ratio = cutoff / natural
+    if measured_cutoff is not None and natural not in (None, 0.0):
+        cutoff_ratio = measured_cutoff / natural
         denom = 2.0 - (1.0 - cutoff_ratio * cutoff_ratio) ** 2
         if denom > 0.0:
             q_factor = cutoff_ratio / math.sqrt(denom)
@@ -159,15 +146,15 @@ def _parse_filter(stdout: str, spec: dict[str, float] | None) -> dict[str, float
     if spec and spec.get("cutoff_hz"):
         cutoff_spec = spec["cutoff_hz"]
         if isinstance(cutoff_spec, (list, tuple)) and len(cutoff_spec) == 2:
-            cutoff = (float(cutoff_spec[0]) + float(cutoff_spec[1])) / 2.0
+            target_cutoff = (float(cutoff_spec[0]) + float(cutoff_spec[1])) / 2.0
         else:
-            cutoff = float(cutoff_spec)
-        stopband_hz = min(max(cutoff * 100.0, 1.0), 1e6)
+            target_cutoff = float(cutoff_spec)
+        stopband_hz = min(max(target_cutoff * 100.0, 1.0), 1e6)
     stopband_gain = _value_at(gain_points, stopband_hz)
     if dc_gain is not None and stopband_gain is not None:
         stopband = dc_gain - stopband_gain
     return {
-        "cutoff_hz": cutoff,
+        "cutoff_hz": measured_cutoff,
         "dc_gain_db": dc_gain,
         "q_factor": q_factor,
         "stopband_atten_db": stopband,

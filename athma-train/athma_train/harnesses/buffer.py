@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.harnesses._measure_utils import (
     has_prepared_device_line,
@@ -60,6 +57,7 @@ def _pick_measurements(spec: dict[str, float] | None) -> str:
             "alter @Ibuf_z[acmag]=0",
             "ac dec 50 1 1e8",
             "meas ac gain_db max vdb(Vout) from=1 to=1e3",
+            "meas ac signed_gain_vv find vr(Vout) at=1",
             "echo __ac_bw__",
             "print frequency vdb(Vout)",
             "echo __end_ac_bw__",
@@ -90,25 +88,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:
@@ -138,9 +124,9 @@ def measure(
         if stdout == "__FAILED__":
             return _none_result()
         result = {fom: _parse_meas(stdout, fom) for fom in FOM_NAMES}
+        result["signed_gain_vv"] = _parse_meas(stdout, "signed_gain_vv")
         result["bandwidth_hz"] = three_db_frequency_hz(
             stdout,
-            fallback_hz=1.0e8,
             marker="__ac_bw__",
         )
         return result

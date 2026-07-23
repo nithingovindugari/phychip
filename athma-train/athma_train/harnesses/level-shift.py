@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.spice_gate import grade_netlist, normalize_netlist
 
@@ -90,7 +87,12 @@ def _pick_prints() -> str:
 
 def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
     nl = normalize_netlist(user_netlist)
-    nl = re.sub(r"\.control\b.*?\.endc\b", "", nl, flags=re.DOTALL | re.IGNORECASE)
+    nl = re.sub(
+        r"(?m)^[ \t]*\.control\b.*?^[ \t]*\.endc\b[^\r\n]*(?:\r?\n|$)",
+        "",
+        nl,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
     nl = re.sub(r"\.end\s*$", "", nl, flags=re.IGNORECASE).rstrip()
     return (
         _TESTBENCH_HEADER.format(circuit_id=CIRCUIT_ID)
@@ -105,25 +107,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:

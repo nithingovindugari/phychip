@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import re
-import subprocess
-import tempfile
-from pathlib import Path
 
 from athma_train.harnesses._measure_utils import parse_numeric_rows
 from athma_train.spice_gate import grade_netlist, normalize_netlist
@@ -81,12 +78,12 @@ def _find_vin_source(nl: str) -> tuple[str, float]:
     return "Vin", -1.0
 
 
-def _find_load_ohm(nl: str, spec: dict[str, float] | None) -> float:
-    if spec:
-        for key in ("load_ohm", "rload_ohm", "output_load_ohm"):
-            value = spec.get(key)
-            if value and value > 0:
-                return value
+def _find_load_ohm(
+    nl: str, spec: dict[str, float] | None = None
+) -> float | None:
+    # `spec` is accepted for compatibility but intentionally ignored. An
+    # efficiency denominator must describe a branch that is actually present
+    # in the simulated circuit, not a requested load the harness did not inject.
     for line in nl.splitlines():
         parts = line.split()
         if len(parts) < 4 or not parts[0].lower().startswith("r"):
@@ -97,7 +94,7 @@ def _find_load_ohm(nl: str, spec: dict[str, float] | None) -> float:
         value = _spice_float(parts[3])
         if value and value > 0:
             return value
-    return 10.0
+    return None
 
 
 def _pick_analyses(spec: dict[str, float] | None) -> str:
@@ -107,29 +104,37 @@ def _pick_analyses(spec: dict[str, float] | None) -> str:
 def _pick_measurements(nl: str, spec: dict[str, float] | None) -> str:
     source_name, input_power_sign = _find_vin_source(nl)
     load_ohm = _find_load_ohm(nl, spec)
-    return "\n".join(
-        (
+    measurements = [
+        "meas tran vout_steady_v avg v(Vout) from=4m to=5m",
+        "meas tran ripple_pp_v pp v(Vout) from=4m to=5m",
+    ]
+    if load_ohm is not None:
+        measurements.extend(
+            (
             f"let pin_w_trace = {input_power_sign:g} * v(Vin) * i({source_name})",
             f"let pout_w_trace = (v(Vout) * v(Vout)) / {load_ohm:.12g}",
-            "meas tran vout_steady_v avg v(Vout) from=4m to=5m",
-            "meas tran ripple_pp_v pp v(Vout) from=4m to=5m",
             "meas tran pin_w avg pin_w_trace from=4m to=5m",
             "meas tran pout_w avg pout_w_trace from=4m to=5m",
             "let efficiency_pct_trace = 100 * pout_w / pin_w + 0 * time",
             "meas tran efficiency_pct avg efficiency_pct_trace from=4m to=5m",
-            "echo __settling_tran__",
-            "print time v(Vout)",
+            )
         )
-    )
+    measurements.extend(("echo __settling_tran__", "print time v(Vout)"))
+    return "\n".join(measurements)
 
 
 def _pick_prints() -> str:
-    return "v(Vin) v(Vout) pin_w_trace pout_w_trace"
+    return "v(Vin) v(Vout)"
 
 
 def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
     nl = normalize_netlist(user_netlist)
-    nl = re.sub(r"\.control\b.*?\.endc\b", "", nl, flags=re.DOTALL | re.IGNORECASE)
+    nl = re.sub(
+        r"(?m)^[ \t]*\.control\b.*?^[ \t]*\.endc\b[^\r\n]*(?:\r?\n|$)",
+        "",
+        nl,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
     nl = re.sub(r"\.end\s*$", "", nl, flags=re.IGNORECASE).rstrip()
     return (
         _TESTBENCH_HEADER.format(circuit_id=CIRCUIT_ID)
@@ -144,25 +149,13 @@ def _build_deck(user_netlist: str, spec: dict[str, float] | None) -> str:
 
 
 def _run_ngspice(deck: str, timeout_s: int) -> str:
-    path = ""
+    from athma_train.spice_gate import run_ngspice_sandboxed
+
     try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".cir", delete=False, dir="/tmp"
-        ) as f:
-            f.write(deck)
-            path = f.name
-        proc = subprocess.run(
-            ["ngspice", "-b", "-n", path],
-            capture_output=True,
-            text=True,
-            timeout=timeout_s,
-        )
-        return (proc.stdout or "") + "\n" + (proc.stderr or "")
-    except (OSError, subprocess.TimeoutExpired):
+        proc = run_ngspice_sandboxed(deck, timeout_s=timeout_s)
+    except Exception:
         return "__FAILED__"
-    finally:
-        if path:
-            Path(path).unlink(missing_ok=True)
+    return (proc.stdout or "") + "\n" + (proc.stderr or "")
 
 
 def _parse_meas(stdout: str, name: str) -> float | None:

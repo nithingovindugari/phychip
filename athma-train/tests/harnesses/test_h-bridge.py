@@ -117,3 +117,15 @@ def test_idempotent():
         if a[key] is None and b[key] is None:
             continue
         assert abs((a[key] or 0) - (b[key] or 0)) < 1e-9, key
+
+
+def test_missing_deadtime_measure_fails_closed(monkeypatch):
+    monkeypatch.setattr(
+        module,
+        "_run_ngspice",
+        lambda _deck, _timeout: "vmotor_pp_v = 5\nNo. of Data Rows : 3\n",
+    )
+
+    result = measure("Vbus Vbus 0 DC 5\nRload Vmotor_p Vmotor_n 10\n.op\n.end")
+
+    assert result["deadtime_s"] is None

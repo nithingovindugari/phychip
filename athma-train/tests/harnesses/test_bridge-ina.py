@@ -91,3 +91,15 @@ def test_idempotent():
         if a[key] is None and b[key] is None:
             continue
         assert abs((a[key] or 0) - (b[key] or 0)) < 1e-9, key
+
+
+def test_missing_bandwidth_crossing_fails_closed(monkeypatch):
+    monkeypatch.setattr(
+        module,
+        "_run_ngspice",
+        lambda _deck, _timeout: "__bridge_offset__\nNo. of Data Rows : 3\n",
+    )
+
+    result = measure("Vex Vex 0 DC 5\nR1 Vex bp 350\nR2 bp 0 350\n.op\n.end")
+
+    assert result["bandwidth_hz"] is None
