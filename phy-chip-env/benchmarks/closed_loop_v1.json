@@ -1,0 +1,119 @@
+{
+  "schema": "phychip-closed-loop-benchmark-v1",
+  "benchmark_id": "phychip-closed-loop-v1",
+  "status": "frozen-development",
+  "frozen_at": "2026-07-29",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "ngspice_major": 46,
+  "budget_definition": "one verifier call is one candidate passed once through scorer-v9; internal sandbox/harness subprocesses are implementation details",
+  "primary_metric": "all_specs_met_within_8_verifier_calls",
+  "secondary_metrics": [
+    "median_verifier_calls_on_success",
+    "canonical_reward",
+    "topology_rejection_rate",
+    "measurement_failure_rate"
+  ],
+  "promotion_gates": {
+    "all_specs_success_rate": 0.7,
+    "median_calls_on_success_lte": 4,
+    "topology_plausible_success_rate": 0.95,
+    "known_reward_attacks_accepted": 0
+  },
+  "task_set_sha256": "55045f6e16e4833d96a144ef3b0ec7dddb87645fdb3db7da07d785edc6da7b46",
+  "protocol_sha256": "492c310aaeffa843e4b03af39d0a40a301ebeea475e9a173a3bb95156b8326e5",
+  "tasks": [
+    {
+      "task_id": "clv1-inv-amp-gain-bw",
+      "circuit_id": "inv-amp",
+      "prompt": "Design an inverting amplifier from Vin to Vout with 19-21 dB gain magnitude and 0.25-2.0 MHz bandwidth. Use real input and feedback impedances around a finite-bandwidth amplifier; the signed transfer must be negative.",
+      "target_specs": {
+        "gain_db": [19.0, 21.0],
+        "bandwidth_hz": [250000.0, 2000000.0]
+      },
+      "allowed_topologies": ["inverting-resistive-feedback"],
+      "max_verifier_calls": 8,
+      "max_codex_calls": 8,
+      "timeout_s": 15.0,
+      "seed": 20260729,
+      "fixed_template": {
+        "template_id": "inv-resistive-v1",
+        "netlist_template": "* Parameterized inverting amplifier\n.param RinValue=$rin GainRatio=$gain\nVin vin 0 DC 0 AC 1\nVref nplus 0 DC 0\nRin vin nminus {RinValue}\nRf vout nminus {GainRatio*RinValue}\nRload vout 0 100k\nXop nplus nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 100k\nRdom raw pole 1k\nCdom pole 0 $cdom\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n",
+        "parameters": [
+          {"name": "rin", "low": 1000.0, "high": 100000.0, "scale": "log"},
+          {"name": "gain", "low": 7.0, "high": 14.0, "scale": "linear"},
+          {"name": "cdom", "low": 1e-08, "high": 0.0001, "scale": "log"}
+        ]
+      }
+    },
+    {
+      "task_id": "clv1-noninv-amp-gain-bw",
+      "circuit_id": "noninv-amp",
+      "prompt": "Design a non-inverting amplifier from Vin to Vout with 19-21 dB gain and 0.25-2.0 MHz bandwidth. Vin must drive the non-inverting signal path and output-derived feedback must set the closed-loop gain.",
+      "target_specs": {
+        "gain_db": [19.0, 21.0],
+        "bandwidth_hz": [250000.0, 2000000.0]
+      },
+      "allowed_topologies": ["noninverting-resistive-feedback"],
+      "max_verifier_calls": 8,
+      "max_codex_calls": 8,
+      "timeout_s": 15.0,
+      "seed": 20260730,
+      "fixed_template": {
+        "template_id": "noninv-resistive-v1",
+        "netlist_template": "* Parameterized non-inverting amplifier\n.param RgValue=$rg FeedbackRatio=$ratio\nVin vin 0 DC 0 AC 1\nRg nminus 0 {RgValue}\nRf vout nminus {FeedbackRatio*RgValue}\nRload vout 0 100k\nXop vin nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 100k\nRdom raw pole 1k\nCdom pole 0 $cdom\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n",
+        "parameters": [
+          {"name": "rg", "low": 1000.0, "high": 100000.0, "scale": "log"},
+          {"name": "ratio", "low": 6.0, "high": 13.0, "scale": "linear"},
+          {"name": "cdom", "low": 1e-08, "high": 0.0001, "scale": "log"}
+        ]
+      }
+    },
+    {
+      "task_id": "clv1-sallen-key-cutoff-q",
+      "circuit_id": "sallen-key",
+      "prompt": "Design a unity-gain Sallen-Key low-pass filter from Vin to Vout with 9-11 kHz cutoff, -0.5 to 0.5 dB DC gain, and Q between 0.25 and 0.8. Both capacitors and the active stage must be load-bearing.",
+      "target_specs": {
+        "cutoff_hz": [9000.0, 11000.0],
+        "dc_gain_db": [-0.5, 0.5],
+        "q_factor": [0.25, 0.8]
+      },
+      "allowed_topologies": ["unity-sallen-key-lowpass"],
+      "max_verifier_calls": 8,
+      "max_codex_calls": 8,
+      "timeout_s": 15.0,
+      "seed": 20260731,
+      "fixed_template": {
+        "template_id": "sallen-key-unity-v1",
+        "netlist_template": "* Parameterized unity-gain Sallen-Key low-pass\n.param RValue=$r FcValue=$fc CValue={1/(6.283185307179586*RValue*FcValue)}\nVin vin 0 DC 0 AC 1\nR1 vin n1 {RValue}\nR2 n1 n2 {RValue}\nC1 n1 vout {CValue}\nC2 n2 0 {CValue}\nXop n2 vout vout ideal_opamp\nRload vout 0 100k\n.subckt ideal_opamp inp inn out\nEout out 0 inp inn 1e6\n.ends ideal_opamp\n.op\n.end\n",
+        "parameters": [
+          {"name": "r", "low": 1000.0, "high": 100000.0, "scale": "log"},
+          {"name": "fc", "low": 12000.0, "high": 20000.0, "scale": "linear"}
+        ]
+      }
+    },
+    {
+      "task_id": "clv1-diff-pair-gain-cmrr-current",
+      "circuit_id": "diff-pair",
+      "prompt": "Design a matched BJT differential pair with Vp and Vn inputs and single-ended Vout. Meet 20-30 dB differential gain, 50-120 dB CMRR, 0.4-0.6 mA tail current, and 0-20 mV input offset.",
+      "target_specs": {
+        "differential_gain_db": [20.0, 30.0],
+        "cmrr_db": [50.0, 120.0],
+        "tail_current_a": [0.0004, 0.0006],
+        "input_offset_v": [0.0, 0.02]
+      },
+      "allowed_topologies": ["bjt-differential-pair-resistive-load"],
+      "max_verifier_calls": 8,
+      "max_codex_calls": 8,
+      "timeout_s": 15.0,
+      "seed": 20260732,
+      "fixed_template": {
+        "template_id": "bjt-diff-pair-v1",
+        "netlist_template": "* Parameterized BJT differential pair\nVp vp 0 DC 0 AC 1\nVn vn 0 DC 0 AC 0\nVCC vcc 0 DC 5\nVEE vee 0 DC -5\nQ1 vout vp emit QNPN\nQ2 vc2 vn emit QNPN\nRC1 vcc vout $rc\nRC2 vcc vc2 $rc\nItail emit vee DC $itail\nRload vout 0 100k\n.model QNPN NPN (IS=1e-15 BF=180 VAF=90 IKF=0.08 CJE=1.8p CJC=0.65p TF=45p TR=8n RB=80 RC=18 RE=1.5)\n.op\n.end\n",
+        "parameters": [
+          {"name": "rc", "low": 1000.0, "high": 50000.0, "scale": "log"},
+          {"name": "itail", "low": 0.0002, "high": 0.001, "scale": "log"}
+        ]
+      }
+    }
+  ]
+}

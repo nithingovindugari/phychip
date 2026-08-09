@@ -1,0 +1,129 @@
+{
+  "ngspice": {
+    "path": "/opt/homebrew/Cellar/ngspice/46_1/bin/ngspice",
+    "sha256": "2bbf481e0e16e6414bc64e0e77cba3a81eec2a258b03b3d944fe4fc41aacaf13",
+    "version_output": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n******"
+  },
+  "package_version": "0.1.0+source",
+  "schema": "phy-chip-env-runtime-fingerprint-v1",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "sources": [
+    {
+      "name": "scorer.py",
+      "sha256": "962bac3e77762542e25c2973949786d84b91a6354686ee9fa3f27a18363d10de"
+    },
+    {
+      "name": "sandbox.py",
+      "sha256": "521f8e4e0c8e3993d95ee45b004d29aa27c34fdff1cc6938b612451d1f28f772"
+    },
+    {
+      "name": "batching.py",
+      "sha256": "68a60a5c97d313db02a11324f68a3d4b0a352c5f65c181f085970fb7a0fcf4ae"
+    },
+    {
+      "name": "environment.py",
+      "sha256": "dd24e48459dbe538aed05c83d3e0517c5239d147ac82ffb058380b2a094c0095"
+    },
+    {
+      "name": "registry.py",
+      "sha256": "efd1d8036f0cb97a112cddafe0f912443cd5182d752aaf2c42340651c9b39951"
+    },
+    {
+      "name": "_measure_utils.py",
+      "sha256": "7c3b687cb3e7f81f53110ff18fb323d2d4c00ed4731d878a6ee8dddbd2350085"
+    },
+    {
+      "name": "bandgap.py",
+      "sha256": "b75dc7ecb929dec9d05a77f43edb2594ccdc921ea155923e923dd0a3ed7ea15f"
+    },
+    {
+      "name": "boost.py",
+      "sha256": "607c5ecdab9143057e077e651bd1df662fb0a3421a139ac8c6fe0946ef7bbc08"
+    },
+    {
+      "name": "bridge_ina.py",
+      "sha256": "6dc91362ceefd4c4a9a32293b5769dd6256af808c4fafc889d289575a9ebb199"
+    },
+    {
+      "name": "buck.py",
+      "sha256": "388f740446b250a286ca44797ec5ac3828e82fe201ef1baf3ceb4b90b70c5d4c"
+    },
+    {
+      "name": "buffer.py",
+      "sha256": "6c52b9a80378d8d49c8acede87511498b026458d3af5c73bff1a643c64baa6ee"
+    },
+    {
+      "name": "cs_stage.py",
+      "sha256": "c573a59877f3deea1414670035ca91cc9c4a4e46cffae488927fee2d284228c2"
+    },
+    {
+      "name": "current_mirror.py",
+      "sha256": "49f48bce0e61eb8bf24ee763e53ac5743031da1b638c32f9189d8a4737a00f23"
+    },
+    {
+      "name": "current_sense.py",
+      "sha256": "19800a769952621344451a9b93163ac2ec9ac5395096413668cf3a41107f216f"
+    },
+    {
+      "name": "diff_amp.py",
+      "sha256": "a4e9f7c7b82c31a36e5ae3dd752aa8ac7534c707a780af50770019d48662e229"
+    },
+    {
+      "name": "diff_pair.py",
+      "sha256": "ec0c3c4e0358f70e7e289205bd00ea4fd9c07f4389467e1d2a5ba2ded125c801"
+    },
+    {
+      "name": "differentiator.py",
+      "sha256": "2f6c53044899c20c1ec58fa60b6544c74dd624ed66c9a0f9b4982b8f668e7953"
+    },
+    {
+      "name": "gain_trim.py",
+      "sha256": "e978550b96f9f2fa5c8de731d0b6b6e231156cd991dc36ceb2a03a7264d28536"
+    },
+    {
+      "name": "h_bridge.py",
+      "sha256": "a5ddf8007369891074df2567fc8b060d94b58faae47ed91cfa61023299b26c38"
+    },
+    {
+      "name": "ina.py",
+      "sha256": "410b3c375c1134303fce9f59653ff18d41de8d0e85465db6b2be9835549c5be2"
+    },
+    {
+      "name": "integrator.py",
+      "sha256": "e426dc8df48e15e09b19af069c6667d545c483742b29b1a35ac942ac708576b8"
+    },
+    {
+      "name": "inv_amp.py",
+      "sha256": "3aa162d2947e2d1c2ee000b0ffa851c938076843c26dec4c71981c7240c65cd4"
+    },
+    {
+      "name": "ldo.py",
+      "sha256": "bea38a94f40a63c9b5697d9a1945a9ef953204210061a9e57a772394f3b118bc"
+    },
+    {
+      "name": "level_shift.py",
+      "sha256": "54afcaa08a89798d592e8db44c35e7c74b804d5b40eee2c27e2e493e5063ca3a"
+    },
+    {
+      "name": "noninv_amp.py",
+      "sha256": "96e1d18f9ae99221f38968aa3f3c2c55ec1e6114270ae21c40fd7eebc1fce0cb"
+    },
+    {
+      "name": "sallen_key.py",
+      "sha256": "aa9a85b18ed23bb76a694fa5782208f76a049013eb8ff36cfbc47809a927f544"
+    },
+    {
+      "name": "schmitt.py",
+      "sha256": "0c5b31c50dc185745221e8d43f812d8c6409422a297200764d47ffeb793572d3"
+    },
+    {
+      "name": "summing_amp.py",
+      "sha256": "106d815743bd2f587bbdf98c3dbce45f8e2f3d8f2254e5b2e63ce6a3d6bd7fb8"
+    },
+    {
+      "name": "tia.py",
+      "sha256": "40c7339f77a0babb33babb0ed587edb576f28ce6077f12771a90e3f7189fcd0b"
+    }
+  ],
+  "verifier_hash": "d9fdd76f529c86d4805950815b23d6274d7afe71d7219307cca6551e5314c59d"
+}

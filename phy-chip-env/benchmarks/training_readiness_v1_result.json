@@ -1,0 +1,49 @@
+{
+  "schema": "phychip-training-readiness-v1",
+  "benchmark_id": "phychip-closed-loop-v1",
+  "task_set_sha256": "55045f6e16e4833d96a144ef3b0ec7dddb87645fdb3db7da07d785edc6da7b46",
+  "protocol_sha256": "492c310aaeffa843e4b03af39d0a40a301ebeea475e9a173a3bb95156b8326e5",
+  "counts": {
+    "episodes": 4,
+    "successes": 2,
+    "approved_successes": 0,
+    "approved_episodes": 0,
+    "reverified_trials": 23,
+    "families": 4,
+    "controllers": [
+      "codex-cli:gpt-5.6-sol:2bad43b08db9087c"
+    ],
+    "mixed_current_policy_tasks": []
+  },
+  "gates": {
+    "trajectory_pilot": {
+      "passed": false,
+      "reasons": [
+        "4/500 required trajectories are present",
+        "4/23 required circuit families are covered",
+        "4 trajectories lack exact-hash outcome approval"
+      ]
+    },
+    "agentic_rft_rejection_sft_sequence_distillation": {
+      "passed": false,
+      "reasons": [
+        "the trajectory-pilot admission gate has not passed"
+      ]
+    },
+    "on_policy_distillation": {
+      "passed": false,
+      "reasons": [
+        "the trajectory-pilot admission gate has not passed",
+        "approval manifest does not pin token-distribution evidence"
+      ]
+    },
+    "multi_turn_rlvr": {
+      "passed": false,
+      "reasons": [
+        "no task has both success and failure under the current controller",
+        "the trajectory-pilot admission gate has not passed",
+        "authenticated current-policy rollout provenance is not implemented in v0.1"
+      ]
+    }
+  }
+}

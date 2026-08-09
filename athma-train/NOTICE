@@ -1,0 +1,277 @@
+# PhyChip - Training Data License Attributions
+
+The athma-train training pipelines load datasets from the HuggingFace Hub.
+Each dataset retains its own license; this NOTICE enumerates them for
+compliance and attribution.
+
+Generated from datasets.md on 2026-05-25.
+
+## By License
+
+### Apache-2.0
+
+- `bespokelabs/Bespoke-Stratos-17k` - R1-distilled math reasoning corpus
+- `gretelai/synthetic_text_to_sql` - Round-trip synthetic-data pattern reference
+- `hardware-fab/osiris` - SKY130 analog layouts with ngspice simulation metrics
+- `HuggingFaceTB/cosmopedia` - Synthetic textbook corpus behind SmolLM
+- `Kyudan/arXiv_latex` - arXiv LaTeX snippets, including physics
+- `m-a-p/FineFineWeb` - Fine-grained FineWeb corpus
+- `metazlb/PhysicTran38K` - Physics translation and Q&A pairs
+- `open-r1/OpenR1-Math-220k` - DeepSeek-R1 math reasoning traces
+- `pphilip/analog-circuits-sky130` - SKY130 ngspice circuits and metrics
+
+### MIT
+
+- `architect-ubc-capstone/rtl-augmented-v3` - RTL augmentation data
+- `Ashed00/SPICE-Circuits` - KiCad-emitted SPICE decks
+- `evaleval/EEE_datastore` - Educational electrical-engineering datastore
+- `HuggingFaceH4/ultrafeedback_binarized` - Chosen/rejected preference pairs
+- `JianGao666/AnalogGenie` - Analog topology corpus
+- `meta-math/MetaMathQA` - Math reasoning chain-of-thought
+- `microsoft/orca-math-word-problems-200k` - Math word problems with solutions
+- `mrbeniwal/HDL-Instruct` - Verilog instruction corpus
+- `nick007x/arxiv-papers` - arXiv mirror
+- `Si7li/ltspice-spice-circuits` - LTspice circuits and schematics
+- `steste80/tscircuit_alpaca.json` - tscircuit instruction data
+- `steste80/tscircuit-circuits-v1` - tscircuit circuit data
+- `zwhe99/DeepMath-103K` - Math RL pool reference
+
+### Apache-2.0 / MIT
+
+- `GaTech-EIC/MG-Verilog` - Verilog instruction-tuning data
+- `KSU-HW-SEC/Verilog_code` - Verilog instruction-tuning data
+- `Nellyw888/RTL-Coder_small` - Verilog instruction-tuning data
+
+### MIT / BigCode OpenRAIL-M
+
+- `shailja/Verilog_GitHub` - VeriGen Verilog modules
+
+### CC-BY-4.0
+
+- `bhatvineet/masala-chai` - Natural-language descriptions paired with SPICE
+- `bshada/open-schematics` - KiCad schematic text fields
+- `common-pile/libretexts_filtered` - LibreTexts physics prose
+- `crumb/openstax-text` - OpenStax physics textbook text
+- `math-ai/StackMathQA` - Math StackExchange Q&A
+- `microsoft/rStar-Coder` - Code reasoning corpus
+- `mlfoundations/dclm-baseline-1.0-parquet` - General replay corpus
+- `nvidia/Llama-Nemotron-Post-Training-Dataset` - Nemotron post-training data
+- `nvidia/Nemotron-RL-Super-Training-Blends` - RLVR/RLHF training blends
+- `nvidia/Nemotron-Science-v1` - Science MCQA and reasoning questions
+- `nvidia/OpenCodeReasoning` - Code reasoning corpus
+- `nvidia/OpenMathReasoning` - Math reasoning corpus
+- `nvidia/OpenScienceReasoning-2` - STEM chain-of-thought data
+- `opendatalab/Sci-Base` - OpenDataLab science corpus
+- `zd21/SciInstruct` - Physics and science instruction data
+
+### CC-BY-SA
+
+- `HuggingFaceTB/stackexchange_2025_md` - StackExchange markdown corpus
+- `jablonkagroup/mattermodeling_stackexchange` - Matter Modeling SE Q&A
+- `jablonkagroup/physics_stackexchange` - Physics StackExchange Q&A
+- `marin-community/stackexchange-markdown` - StackExchange markdown corpus
+- `marianna13/physics-stackexchange` - Physics StackExchange Q&A
+
+### CC-BY-SA-3.0
+
+- `arnosimons/wikipedia-physics-corpus` - Filtered Wikipedia physics pages
+- `bshada/electronics.stackexchange.com` - Electronics StackExchange Q&A
+
+### CC-BY-SA-4.0
+
+- `euclaise/mathoverflow-accepted` - Accepted MathOverflow answers
+- `math-ai/AutoMathText` - arXiv math and science text
+
+### CC-BY-SA-3.0 + GFDL
+
+- `wikimedia/wikipedia` - Wikipedia physics-category filter
+
+### CC-BY-NC / CC-BY-NC-SA (educational / research use only - USABLE UNDER EDUCATIONAL PIVOT)
+
+- `a-m-team/AM-DeepSeek-R1-Distilled-1.4M` - DeepSeek-R1 reasoning traces
+- `allenai/sciq` - Science multiple-choice questions
+- `bnadimi/PyraNet-Verilog` - Verilog corpus
+- `camel-ai/physics` - Physics step-by-step solutions
+- `Cartinoe5930/GeneralThought-Science` - Science reasoning data
+- `CJJones/LLM_Electrical_Engineering_Educational_Synthetic_Dialog` - EE dialog data
+- `facebook/natural_reasoning` - Physics and engineering reasoning data
+- `GAIR/MathPile` - MathPile full corpus
+- `GAIR/OlympicArena` - Olympiad physics problems
+- `IDEALLab/power_electronics_v0` - Parametric power-electronics data
+- `MegaScience/TextbookReasoning` - Textbook reasoning corpus
+- `neuralwork/arxiver` - Markdown arXiv mirror
+- `piushorn/arxiv-latex-tables-43k` - LaTeX tables corpus
+
+### ODC-By
+
+- `allenai/peS2o` - S2ORC-derived academic corpus
+- `allenai/RLVR-GSM` - RLVR-formatted GSM math tasks
+- `allenai/RLVR-IFeval` - Instruction-following RLVR constraints
+- `allenai/RLVR-MATH` - RLVR-formatted math tasks
+- `allenai/tulu-3-sft-mixture` - Tulu 3 SFT mixture
+- `emozilla/dolma-v1_7-arxiv` - Raw LaTeX arXiv corpus
+- `HuggingFaceFW/finepdfs` - PDF-extracted scientific corpus
+- `HuggingFaceFW/finephrase` - Sentence-segmented FineWeb
+- `HuggingFaceFW/fineweb-edu` - FineWeb-Edu replay sample
+- `HuggingFaceTB/finemath` - FineMath replay sample
+- `HuggingFaceTB/smollm-corpus` - SmolLM base pretraining mix
+- `open-web-math/open-web-math` - Web math corpus
+
+### BigCode OpenRAIL-M
+
+- `bigcode/the-stack-v2-dedup` - HDL slice of The Stack v2
+
+### AFL-3.0
+
+- `UniverseTBD/arxiv-abstracts-large` - Bulk arXiv abstracts
+
+### arXiv ToU / per-paper arXiv
+
+- `EleutherAI/proof-pile-2` - Primary arXiv LaTeX physics signal
+- `permutans/arxiv-papers-by-subject` - arXiv eess/cs.AR subject filter
+
+### C-UDA-1.0
+
+- `marin-community/ar5iv-no-problem-markdown` - Markdown arXiv mirror
+
+### CC0
+
+- `common-pile/arxiv_abstracts_filtered` - Filtered arXiv abstracts
+
+### CC-BY-4.0 + Public Domain
+
+- `baber/uspto_raw` - Raw USPTO patent data
+- `common-pile/uspto` - USPTO patent corpus
+
+### Public Domain
+
+- `HuggingFaceM4/USPTO` - USPTO patent corpus
+
+### Design Science License
+
+- `Lessons in Electric Circuits Vol III` - Kuphaldt semiconductor text
+
+### Unknown / No license declared (TRAINING USE FLAGGED FOR PRE-RELEASE REVIEW)
+
+- `goihere/Netlist_data` - Small SPICE netlist instruction-response set
+- `hdl2v/vhdl-dataset` - VHDL to Verilog translation pairs
+- `HuggingFaceTB/smoltalk` - SmolLM SFT data, license to verify
+
+## By Dataset (alphabetical)
+
+- `a-m-team/AM-DeepSeek-R1-Distilled-1.4M` - CC-BY-NC-4.0 - DeepSeek-R1 reasoning traces
+- `allenai/peS2o` - ODC-By - S2ORC-derived academic corpus
+- `allenai/RLVR-GSM` - ODC-By - RLVR-formatted GSM math tasks
+- `allenai/RLVR-IFeval` - ODC-By - Instruction-following RLVR constraints
+- `allenai/RLVR-MATH` - ODC-By - RLVR-formatted math tasks
+- `allenai/sciq` - CC-BY-NC-3.0 - Science multiple-choice questions
+- `allenai/tulu-3-sft-mixture` - ODC-By - Tulu 3 SFT mixture
+- `architect-ubc-capstone/rtl-augmented-v3` - MIT - RTL augmentation data
+- `arnosimons/wikipedia-physics-corpus` - CC-BY-SA-3.0 - Filtered Wikipedia physics pages
+- `Ashed00/SPICE-Circuits` - MIT - KiCad-emitted SPICE decks
+- `baber/uspto_raw` - CC-BY-4.0 + Public Domain - Raw USPTO patent data
+- `bespokelabs/Bespoke-Stratos-17k` - Apache-2.0 - R1-distilled math reasoning corpus
+- `bhatvineet/masala-chai` - CC-BY-4.0 - Natural-language descriptions paired with SPICE
+- `bigcode/the-stack-v2-dedup` - BigCode OpenRAIL-M - HDL slice of The Stack v2
+- `bnadimi/PyraNet-Verilog` - CC-BY-NC-SA-4.0 - Verilog corpus
+- `bshada/electronics.stackexchange.com` - CC-BY-SA-3.0 - Electronics StackExchange Q&A
+- `bshada/open-schematics` - CC-BY-4.0 - KiCad schematic text fields
+- `camel-ai/physics` - CC-BY-NC-4.0 - Physics step-by-step solutions
+- `Cartinoe5930/GeneralThought-Science` - CC-BY-NC-SA-4.0 - Science reasoning data
+- `CJJones/LLM_Electrical_Engineering_Educational_Synthetic_Dialog` - CC-BY-NC-SA-4.0 - EE dialog data
+- `common-pile/arxiv_abstracts_filtered` - CC0 - Filtered arXiv abstracts
+- `common-pile/libretexts_filtered` - CC-BY-4.0 - LibreTexts physics prose
+- `common-pile/uspto` - CC-BY-4.0 + Public Domain - USPTO patent corpus
+- `crumb/openstax-text` - CC-BY-4.0 - OpenStax physics textbook text
+- `EleutherAI/proof-pile-2` - arXiv ToU - Primary arXiv LaTeX physics signal
+- `emozilla/dolma-v1_7-arxiv` - ODC-By - Raw LaTeX arXiv corpus
+- `euclaise/mathoverflow-accepted` - CC-BY-SA-4.0 - Accepted MathOverflow answers
+- `evaleval/EEE_datastore` - MIT - Educational electrical-engineering datastore
+- `facebook/natural_reasoning` - CC-BY-NC-SA-4.0 - Physics and engineering reasoning data
+- `GAIR/MathPile` - CC-BY-NC-SA-4.0 - MathPile full corpus
+- `GAIR/OlympicArena` - CC-BY-NC-SA-4.0 - Olympiad physics problems
+- `GaTech-EIC/MG-Verilog` - Apache-2.0 / MIT - Verilog instruction-tuning data
+- `goihere/Netlist_data` - NO LICENSE DECLARED - Small SPICE netlist instruction-response set
+- `gretelai/synthetic_text_to_sql` - Apache-2.0 - Round-trip synthetic-data pattern reference
+- `hardware-fab/osiris` - Apache-2.0 - SKY130 analog layouts with ngspice simulation metrics
+- `hdl2v/vhdl-dataset` - NO LICENSE DECLARED - VHDL to Verilog translation pairs
+- `HuggingFaceFW/finepdfs` - ODC-By - PDF-extracted scientific corpus
+- `HuggingFaceFW/finephrase` - ODC-By - Sentence-segmented FineWeb
+- `HuggingFaceFW/fineweb-edu` - ODC-By - FineWeb-Edu replay sample
+- `HuggingFaceH4/ultrafeedback_binarized` - MIT - Chosen/rejected preference pairs
+- `HuggingFaceM4/USPTO` - Public Domain - USPTO patent corpus
+- `HuggingFaceTB/cosmopedia` - Apache-2.0 - Synthetic textbook corpus behind SmolLM
+- `HuggingFaceTB/finemath` - ODC-By - FineMath replay sample
+- `HuggingFaceTB/smollm-corpus` - ODC-By - SmolLM base pretraining mix
+- `HuggingFaceTB/smoltalk` - unspecified - SmolLM SFT data, license to verify
+- `HuggingFaceTB/stackexchange_2025_md` - CC-BY-SA - StackExchange markdown corpus
+- `IDEALLab/power_electronics_v0` - CC-BY-NC-SA-4.0 - Parametric power-electronics data
+- `JianGao666/AnalogGenie` - MIT - Analog topology corpus
+- `jablonkagroup/mattermodeling_stackexchange` - CC-BY-SA - Matter Modeling SE Q&A
+- `jablonkagroup/physics_stackexchange` - CC-BY-SA - Physics StackExchange Q&A
+- `KSU-HW-SEC/Verilog_code` - Apache-2.0 / MIT - Verilog instruction-tuning data
+- `Kyudan/arXiv_latex` - Apache-2.0 - arXiv LaTeX snippets, including physics
+- `Lessons in Electric Circuits Vol III` - Design Science License - Kuphaldt semiconductor text
+- `m-a-p/FineFineWeb` - Apache-2.0 - Fine-grained FineWeb corpus
+- `marin-community/ar5iv-no-problem-markdown` - C-UDA-1.0 - Markdown arXiv mirror
+- `marin-community/stackexchange-markdown` - CC-BY-SA - StackExchange markdown corpus
+- `marianna13/physics-stackexchange` - CC-BY-SA - Physics StackExchange Q&A
+- `math-ai/AutoMathText` - CC-BY-SA-4.0 - arXiv math and science text
+- `math-ai/StackMathQA` - CC-BY-4.0 - Math StackExchange Q&A
+- `MegaScience/TextbookReasoning` - CC-BY-NC - Textbook reasoning corpus
+- `meta-math/MetaMathQA` - MIT - Math reasoning chain-of-thought
+- `metazlb/PhysicTran38K` - Apache-2.0 - Physics translation and Q&A pairs
+- `microsoft/orca-math-word-problems-200k` - MIT - Math word problems with solutions
+- `microsoft/rStar-Coder` - CC-BY-4.0 - Code reasoning corpus
+- `mlfoundations/dclm-baseline-1.0-parquet` - CC-BY-4.0 - General replay corpus
+- `mrbeniwal/HDL-Instruct` - MIT - Verilog instruction corpus
+- `Nellyw888/RTL-Coder_small` - Apache-2.0 / MIT - Verilog instruction-tuning data
+- `neuralwork/arxiver` - CC-BY-NC-SA-4.0 - Markdown arXiv mirror
+- `nick007x/arxiv-papers` - MIT - arXiv mirror
+- `nvidia/Llama-Nemotron-Post-Training-Dataset` - CC-BY-4.0 - Nemotron post-training data
+- `nvidia/Nemotron-RL-Super-Training-Blends` - CC-BY-4.0 - RLVR/RLHF training blends
+- `nvidia/Nemotron-Science-v1` - CC-BY-4.0 - Science MCQA and reasoning questions
+- `nvidia/OpenCodeReasoning` - CC-BY-4.0 - Code reasoning corpus
+- `nvidia/OpenMathReasoning` - CC-BY-4.0 - Math reasoning corpus
+- `nvidia/OpenScienceReasoning-2` - CC-BY-4.0 - STEM chain-of-thought data
+- `open-r1/OpenR1-Math-220k` - Apache-2.0 - DeepSeek-R1 math reasoning traces
+- `open-web-math/open-web-math` - ODC-By - Web math corpus
+- `opendatalab/Sci-Base` - CC-BY-4.0 - OpenDataLab science corpus
+- `permutans/arxiv-papers-by-subject` - per-paper arXiv - arXiv eess/cs.AR subject filter
+- `piushorn/arxiv-latex-tables-43k` - CC-BY-NC-SA-4.0 - LaTeX tables corpus
+- `pphilip/analog-circuits-sky130` - Apache-2.0 - SKY130 ngspice circuits and metrics
+- `shailja/Verilog_GitHub` - MIT / BigCode OpenRAIL-M - VeriGen Verilog modules
+- `Si7li/ltspice-spice-circuits` - MIT - LTspice circuits and schematics
+- `steste80/tscircuit_alpaca.json` - MIT - tscircuit instruction data
+- `steste80/tscircuit-circuits-v1` - MIT - tscircuit circuit data
+- `UniverseTBD/arxiv-abstracts-large` - AFL-3.0 - Bulk arXiv abstracts
+- `wikimedia/wikipedia` - CC-BY-SA-3.0 + GFDL - Wikipedia physics-category filter
+- `zd21/SciInstruct` - CC-BY-4.0 - Physics and science instruction data
+- `zwhe99/DeepMath-103K` - MIT - Math RL pool reference
+
+## License URLs
+
+- AFL-3.0: https://opensource.org/license/afl-3-0-php
+- Apache-2.0: https://www.apache.org/licenses/LICENSE-2.0
+- BigCode OpenRAIL-M: https://www.bigcode-project.org/docs/pages/model-license/
+- CC0: https://creativecommons.org/publicdomain/zero/1.0/
+- CC-BY-4.0: https://creativecommons.org/licenses/by/4.0/
+- CC-BY-NC-3.0: https://creativecommons.org/licenses/by-nc/3.0/
+- CC-BY-NC-4.0: https://creativecommons.org/licenses/by-nc/4.0/
+- CC-BY-NC-SA-4.0: https://creativecommons.org/licenses/by-nc-sa/4.0/
+- CC-BY-SA-3.0: https://creativecommons.org/licenses/by-sa/3.0/
+- CC-BY-SA-4.0: https://creativecommons.org/licenses/by-sa/4.0/
+- C-UDA-1.0: https://github.com/lfai/cuda
+- Design Science License: https://www.gnu.org/licenses/dsl.html
+- GFDL: https://www.gnu.org/licenses/fdl-1.3.html
+- MIT: https://opensource.org/licenses/MIT
+- ODC-By: https://opendatacommons.org/licenses/by/1-0/
+- Public Domain: https://creativecommons.org/publicdomain/mark/1.0/
+
+## Excluded datasets (per CLAUDE.md hard guardrails)
+
+- CC-BY-ND, CC-BY-NC-ND - distribution of derivative weights prohibited
+- Vendor EULAs (TI/ADI/Maxim/Linear/STMicro/Microchip/Renesas/Toshiba/Infineon/ON Semi)
+- Copyrighted textbooks (Sedra/Smith, Razavi, Gray/Hurst, Allen/Holberg,
+  Halliday/Resnick, Pierret, Sze, Streetman)
+- Qwen-as-teacher datasets (benchmark contamination - see learning.md)

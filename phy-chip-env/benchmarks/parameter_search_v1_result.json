@@ -1,0 +1,55 @@
+{
+  "schema": "phychip-parameter-search-development-result-v2",
+  "status": "development-only-not-sealed-not-a-generalization-result",
+  "benchmark_id": "phychip-closed-loop-v1",
+  "task_set_sha256": "55045f6e16e4833d96a144ef3b0ec7dddb87645fdb3db7da07d785edc6da7b46",
+  "protocol_sha256": "492c310aaeffa843e4b03af39d0a40a301ebeea475e9a173a3bb95156b8326e5",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "verifier_hash": "d9fdd76f529c86d4805950815b23d6274d7afe71d7219307cca6551e5314c59d",
+  "research_source_sha256": "504fc31805ca7e4805a819b7c013dcee34906b53676fef36837fd5de17acd4de",
+  "cli_source_sha256": "196c98eee74e04fa81b743a812d74ea8afec0cab201d2c44b260f76ed1d79902",
+  "ngspice": {
+    "major": 46,
+    "binary_sha256": "2bbf481e0e16e6414bc64e0e77cba3a81eec2a258b03b3d944fe4fc41aacaf13"
+  },
+  "tasks": 4,
+  "maximum_simulator_calls_per_task": 8,
+  "raw_episode_logs_distributed": false,
+  "reproduction": "phy-chip-env research-batch --benchmark phy-chip-env/benchmarks/closed_loop_v1.json --controller {random,lhs,tpe} --output-directory <fresh-directory>",
+  "claim_boundary": "This four-task development smoke qualifies matched random, Latin-hypercube, and TPE execution. It is too small and not sealed; it does not establish method superiority or generalization. Event hashes are intentionally omitted because timestamps make them run-specific; source, runtime, controller-protocol, task, seed, and aggregate evidence are bound instead.",
+  "arms": {
+    "random": {
+      "controller_alias": "fixed-random",
+      "successes": 3,
+      "simulator_calls": 18,
+      "outcomes": {
+        "clv1-diff-pair-gain-cmrr-current": {"calls": 8, "success": false, "controller_id": "fixed-random:bjt-diff-pair-v1:16ee4376ffc82832"},
+        "clv1-inv-amp-gain-bw": {"calls": 3, "success": true, "controller_id": "fixed-random:inv-resistive-v1:f0f8ef3cd73dbac0"},
+        "clv1-noninv-amp-gain-bw": {"calls": 5, "success": true, "controller_id": "fixed-random:noninv-resistive-v1:df922d95bdee0c17"},
+        "clv1-sallen-key-cutoff-q": {"calls": 2, "success": true, "controller_id": "fixed-random:sallen-key-unity-v1:305733c660a5a488"}
+      }
+    },
+    "latin_hypercube": {
+      "controller_alias": "fixed-lhs",
+      "successes": 3,
+      "simulator_calls": 17,
+      "outcomes": {
+        "clv1-diff-pair-gain-cmrr-current": {"calls": 3, "success": true, "controller_id": "fixed-lhs:bjt-diff-pair-v1:72acd94838ae34c8"},
+        "clv1-inv-amp-gain-bw": {"calls": 8, "success": false, "controller_id": "fixed-lhs:inv-resistive-v1:ed26e4c403dc692f"},
+        "clv1-noninv-amp-gain-bw": {"calls": 3, "success": true, "controller_id": "fixed-lhs:noninv-resistive-v1:0e4d150d96160002"},
+        "clv1-sallen-key-cutoff-q": {"calls": 3, "success": true, "controller_id": "fixed-lhs:sallen-key-unity-v1:20a079bdf5daf6c0"}
+      }
+    },
+    "tpe": {
+      "controller_alias": "fixed-topology-tpe",
+      "successes": 4,
+      "simulator_calls": 21,
+      "outcomes": {
+        "clv1-diff-pair-gain-cmrr-current": {"calls": 6, "success": true, "controller_id": "fixed-tpe:bjt-diff-pair-v1:1cbf0e9d0cf19ba8"},
+        "clv1-inv-amp-gain-bw": {"calls": 8, "success": true, "controller_id": "fixed-tpe:inv-resistive-v1:81ae2b1616479f2b"},
+        "clv1-noninv-amp-gain-bw": {"calls": 4, "success": true, "controller_id": "fixed-tpe:noninv-resistive-v1:a65f4bcf79b61b46"},
+        "clv1-sallen-key-cutoff-q": {"calls": 3, "success": true, "controller_id": "fixed-tpe:sallen-key-unity-v1:8cbea9c2737d8ad7"}
+      }
+    }
+  }
+}

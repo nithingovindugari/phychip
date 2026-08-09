@@ -1,0 +1,216 @@
+{
+  "schema": "phychip-closed-loop-benchmark-v1",
+  "benchmark_id": "phychip-feedback-use-v3-eight-family-preflight",
+  "status": "preregistered-frozen-unexecuted",
+  "frozen_at": "2026-08-01",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "ngspice_major": 46,
+  "benchmark_question": "Does ngspice feedback improve repair success across eight circuit families under prompt-hidden passive perturbations?",
+  "budget_definition": "the frozen initial observation and every proposed revision each consume one verifier call",
+  "primary_metric": "paired_full_feedback_minus_feedback_blind_all_specs_success_within_8_calls",
+  "secondary_metrics": ["verifier_calls_on_success", "topology_rejection_rate", "measurement_failure_rate"],
+  "split_policy": {
+    "role": "paired_feedback_evaluation",
+    "claim_boundary": "24-pair eight-family preflight only; not powered confirmatory evidence, not PVT, not OOD generalization, and never training data",
+    "withheld_from_controller": "exact verifier_augmentation bytes and internal condition mapping",
+    "future_confirmatory_floor": "48 pairs for a preregistered 25-point effect or 96 pairs for a 20-point effect"
+  },
+  "execution_protocol": {
+    "paired_adjacent": true,
+    "balanced_randomized_arm_order": true,
+    "schedule_seed": 20260801,
+    "endpoint_revision_caveat": "Codex CLI exposes a model name but no authenticated backend checkpoint revision or shared decoding seed"
+  },
+  "analysis_protocol": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 20260801,
+    "missing_pair_policy": "fail closed; never rerun only one arm after unblinding"
+  },
+  "promotion_gates": {
+    "exact_paired_tasks": 24,
+    "minimum_paired_tasks": 24,
+    "minimum_circuit_families": 8,
+    "admissible_split_role": "paired_feedback_evaluation",
+    "known_reward_attacks_accepted": 0,
+    "paired_success_ci95_lower_gt": 0.0,
+    "paired_success_delta_gte": 0.2,
+    "paired_exact_mcnemar_p_lte": 0.05,
+    "family_clustered_success_ci95_lower_gt": 0.0,
+    "family_exact_sign_p_lte": 0.05,
+    "per_success_audit_required": true,
+    "topology_plausible_success_rate": 1.0,
+    "component_practical_success_rate": 1.0
+  },
+  "task_set_sha256": "d3d857284b76940bbb9d1bbd82f0061862503033fe62ab478b568d5302551d79",
+  "protocol_sha256": "1240d65baa4d93741e69636478696e1eaf800654d34bc2a4cba4c4ad64e8cc96",
+  "tasks": [
+    {
+      "task_id": "9r8jgormxbek92l8s8wp", "controller_task_id": "pieuo8oc09zcke5raw4y", "circuit_id": "inv-amp",
+      "prompt": "Repair this inverting amplifier to 19-21 dB gain magnitude and 0.20-1.0 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect from measurements while preserving signed inversion, real negative feedback, and practical resistor values from 100 ohm to 10 megohm and capacitors from 100 fF to 100 uF.",
+      "target_specs": {"gain_db": [19.0, 21.0], "bandwidth_hz": [200000.0, 1000000.0]}, "allowed_topologies": ["inverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260821, "verifier_augmentation": "Csecret nminus 0 3.3n",
+      "initial_netlist": "* finite-bandwidth inverting amplifier\n.param RinValue=8200 GainRatio=5\nVin vin 0 DC 0 AC 1\nVref nplus 0 DC 0\nRin vin nminus {RinValue}\nRf vout nminus {GainRatio*RinValue}\nRload vout 0 100k\nXop nplus nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 100k\nRdom raw pole 1k\nCdom pole 0 0.0001\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "1tgy5ckw5o9fcigqnl1x", "controller_task_id": "bvls67t603o4xl6i4zxi", "circuit_id": "inv-amp",
+      "prompt": "Repair this inverting amplifier to 17-19 dB gain magnitude and 0.10-0.8 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect from measurements while preserving signed inversion, real negative feedback, and practical resistor values from 100 ohm to 10 megohm and capacitors from 100 fF to 100 uF.",
+      "target_specs": {"gain_db": [17.0, 19.0], "bandwidth_hz": [100000.0, 800000.0]}, "allowed_topologies": ["inverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260822, "verifier_augmentation": "Csecret nminus 0 12n",
+      "initial_netlist": "* finite-bandwidth inverting amplifier\n.param RinValue=15000 GainRatio=9\nVin vin 0 DC 0 AC 1\nVref nplus 0 DC 0\nRin vin nminus {RinValue}\nRf vout nminus {GainRatio*RinValue}\nRload vout 0 82k\nXop nplus nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 80000\nRdom raw pole 1.2k\nCdom pole 0 82n\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "km1ipfezar7zya8mjxsn", "controller_task_id": "rk32u70hg4y1w0446ldo", "circuit_id": "inv-amp",
+      "prompt": "Repair this inverting amplifier to 23-25 dB gain magnitude and 0.25-2.0 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect from measurements while preserving signed inversion, real negative feedback, and practical resistor values from 100 ohm to 10 megohm and capacitors from 100 fF to 100 uF.",
+      "target_specs": {"gain_db": [23.0, 25.0], "bandwidth_hz": [250000.0, 2000000.0]}, "allowed_topologies": ["inverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260823, "verifier_augmentation": "Csecret nminus 0 39n",
+      "initial_netlist": "* finite-bandwidth inverting amplifier\n.param RinValue=4700 GainRatio=3.5\nVin vin 0 DC 0 AC 1\nVref nplus 0 DC 0\nRin vin nminus {RinValue}\nRf vout nminus {GainRatio*RinValue}\nRload vout 0 150k\nXop nplus nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 120k\nRdom raw pole 820\nCdom pole 0 120n\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "oftqx8x047y9pkcv30m4", "controller_task_id": "p6tt9rjwyjxi2e2i4cqc", "circuit_id": "noninv-amp",
+      "prompt": "Repair this non-inverting amplifier to 13-15 dB gain and 0.20-1.0 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect while preserving the non-inverting input path, output-derived feedback, and practical components.",
+      "target_specs": {"gain_db": [13.0, 15.0], "bandwidth_hz": [200000.0, 1000000.0]}, "allowed_topologies": ["noninverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260824, "verifier_augmentation": "Csecret nminus 0 4.7n",
+      "initial_netlist": "* finite-bandwidth non-inverting amplifier\n.param RgValue=8200 FeedbackRatio=3\nVin vin 0 DC 0 AC 1\nRg nminus 0 {RgValue}\nRf vout nminus {FeedbackRatio*RgValue}\nRload vout 0 100k\nXop vin nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 100k\nRdom raw pole 1k\nCdom pole 0 0.0001\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "1v5v62kkn3cu1sqbtcyt", "controller_task_id": "ngw28jewrqddcp7ze7hx", "circuit_id": "noninv-amp",
+      "prompt": "Repair this non-inverting amplifier to 17-19 dB gain and 0.10-0.8 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect while preserving the non-inverting input path, output-derived feedback, and practical components.",
+      "target_specs": {"gain_db": [17.0, 19.0], "bandwidth_hz": [100000.0, 800000.0]}, "allowed_topologies": ["noninverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260825, "verifier_augmentation": "Csecret nminus 0 18n",
+      "initial_netlist": "* finite-bandwidth non-inverting amplifier\n.param RgValue=15000 FeedbackRatio=7\nVin vin 0 DC 0 AC 1\nRg nminus 0 {RgValue}\nRf vout nminus {FeedbackRatio*RgValue}\nRload vout 0 82k\nXop vin nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 80000\nRdom raw pole 1.2k\nCdom pole 0 82n\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "wtyzx09rn6yjbhawu9qh", "controller_task_id": "3f1fhtrqf80ucn2zungt", "circuit_id": "noninv-amp",
+      "prompt": "Repair this non-inverting amplifier to 23-25 dB gain and 0.25-2.0 MHz bandwidth. A verifier-only passive is attached to the feedback node. Infer its effect while preserving the non-inverting input path, output-derived feedback, and practical components.",
+      "target_specs": {"gain_db": [23.0, 25.0], "bandwidth_hz": [250000.0, 2000000.0]}, "allowed_topologies": ["noninverting-resistive-feedback"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260826, "verifier_augmentation": "Csecret nminus 0 68n",
+      "initial_netlist": "* finite-bandwidth non-inverting amplifier\n.param RgValue=4700 FeedbackRatio=4\nVin vin 0 DC 0 AC 1\nRg nminus 0 {RgValue}\nRf vout nminus {FeedbackRatio*RgValue}\nRload vout 0 150k\nXop vin nminus vout finite_opamp\n.subckt finite_opamp inp inn out\nEerr raw 0 inp inn 120k\nRdom raw pole 820\nCdom pole 0 120n\nEbuf out 0 pole 0 1\n.ends finite_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "3vulbw3pxp63g2avs0ln", "controller_task_id": "odn3va8sue4abd616mg0", "circuit_id": "sallen-key",
+      "prompt": "Repair this unity-gain Sallen-Key low-pass to 8.5-9.5 kHz cutoff, -0.5 to 0.5 dB DC gain, and Q 0.30-0.80. A verifier-only shunt passive is present at a filter state. Preserve two load-bearing capacitors, two load-bearing resistors, the active stage, and practical components.",
+      "target_specs": {"cutoff_hz": [8500.0, 9500.0], "dc_gain_db": [-0.5, 0.5], "q_factor": [0.3, 0.8]}, "allowed_topologies": ["unity-sallen-key-lowpass"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260827, "verifier_augmentation": "Csecret n2 0 0.47n",
+      "initial_netlist": "* unity Sallen-Key\n.param RValue=8200 FcValue=18000 CValue={1/(6.283185307179586*RValue*FcValue)}\nVin vin 0 DC 0 AC 1\nR1 vin n1 {RValue}\nR2 n1 n2 {RValue}\nC1 n1 vout {CValue}\nC2 n2 0 {CValue}\nXop n2 vout vout ideal_opamp\nRload vout 0 100k\n.subckt ideal_opamp inp inn out\nEout out 0 inp inn 1e6\n.ends ideal_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "gx3xxqu1bg4psm0zkrnc", "controller_task_id": "0kal30sc41vwsddo9z84", "circuit_id": "sallen-key",
+      "prompt": "Repair this unity-gain Sallen-Key low-pass to 5-6 kHz cutoff, -0.5 to 0.5 dB DC gain, and Q 0.30-0.80. A verifier-only shunt passive is present at a filter state. Preserve two load-bearing capacitors, two load-bearing resistors, the active stage, and practical components.",
+      "target_specs": {"cutoff_hz": [5000.0, 6000.0], "dc_gain_db": [-0.5, 0.5], "q_factor": [0.3, 0.8]}, "allowed_topologies": ["unity-sallen-key-lowpass"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260828, "verifier_augmentation": "Csecret n2 0 1.5n",
+      "initial_netlist": "* unity Sallen-Key unequal nominal scale\n.param RValue=15000 FcValue=9000 CValue={1/(6.283185307179586*RValue*FcValue)}\nVin vin 0 DC 0 AC 1\nR1 vin n1 {RValue}\nR2 n1 n2 {RValue}\nC1 n1 vout {CValue}\nC2 n2 0 {CValue}\nXop n2 vout vout ideal_opamp\nRload vout 0 82k\n.subckt ideal_opamp inp inn out\nEout out 0 inp inn 8e5\n.ends ideal_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "6hmpuil4p8pq5mbwal84", "controller_task_id": "82evb0midaxsc6og71w1", "circuit_id": "sallen-key",
+      "prompt": "Repair this unity-gain Sallen-Key low-pass to 2.8-3.2 kHz cutoff, -0.5 to 0.5 dB DC gain, and Q 0.25-0.75. A verifier-only shunt passive is present at a filter state. Preserve two load-bearing capacitors, two load-bearing resistors, the active stage, and practical components.",
+      "target_specs": {"cutoff_hz": [2800.0, 3200.0], "dc_gain_db": [-0.5, 0.5], "q_factor": [0.25, 0.75]}, "allowed_topologies": ["unity-sallen-key-lowpass"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260829, "verifier_augmentation": "Csecret n2 0 3.3n",
+      "initial_netlist": "* unity Sallen-Key high initial cutoff\n.param RValue=4700 FcValue=30000 CValue={1/(6.283185307179586*RValue*FcValue)}\nVin vin 0 DC 0 AC 1\nR1 vin n1 {RValue}\nR2 n1 n2 {RValue}\nC1 n1 vout {CValue}\nC2 n2 0 {CValue}\nXop n2 vout vout ideal_opamp\nRload vout 0 150k\n.subckt ideal_opamp inp inn out\nEout out 0 inp inn 1.2e6\n.ends ideal_opamp\n.op\n.end\n"
+    },
+    {
+      "task_id": "mqkwj0gsflvk8je6f3cw", "controller_task_id": "ahdwrm3xtm03a0g1ig5w", "circuit_id": "diff-pair",
+      "prompt": "Repair this matched BJT differential pair to 18-22 dB differential gain, 50-120 dB CMRR, 0.4-0.6 mA tail current, and 0-20 mV offset. A verifier-only output load is present. Preserve a physical matched differential pair and practical bias/load values.",
+      "target_specs": {"differential_gain_db": [18.0, 22.0], "cmrr_db": [50.0, 120.0], "tail_current_a": [0.0004, 0.0006], "input_offset_v": [0.0, 0.02]}, "allowed_topologies": ["bjt-differential-pair-resistive-load"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260830, "verifier_augmentation": "Rsecret vout 0 3.3k",
+      "initial_netlist": "* BJT differential pair\nVp vp 0 DC 0 AC 1\nVn vn 0 DC 0 AC 0\nVCC vcc 0 DC 5\nVEE vee 0 DC -5\nQ1 vout vp emit QNPN\nQ2 vc2 vn emit QNPN\nRC1 vcc vout 1k\nRC2 vcc vc2 1k\nItail emit vee DC 1m\nRload vout 0 100k\n.model QNPN NPN (IS=1e-15 BF=180 VAF=90 IKF=0.08 CJE=1.8p CJC=0.65p TF=45p TR=8n RB=80 RC=18 RE=1.5)\n.op\n.end\n"
+    },
+    {
+      "task_id": "44uzjz356f59pjzqdt0r", "controller_task_id": "ub8czmqs74hgfyz5z01p", "circuit_id": "diff-pair",
+      "prompt": "Repair this matched BJT differential pair to 24-28 dB differential gain, 50-120 dB CMRR, 0.4-0.6 mA tail current, and 0-20 mV offset. A verifier-only output load is present. Preserve a physical matched differential pair and practical bias/load values.",
+      "target_specs": {"differential_gain_db": [24.0, 28.0], "cmrr_db": [50.0, 120.0], "tail_current_a": [0.0004, 0.0006], "input_offset_v": [0.0, 0.02]}, "allowed_topologies": ["bjt-differential-pair-resistive-load"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260831, "verifier_augmentation": "Rsecret vout 0 6.8k",
+      "initial_netlist": "* BJT differential pair high collector load\nVp vp 0 DC 0 AC 1\nVn vn 0 DC 0 AC 0\nVCC vcc 0 DC 5\nVEE vee 0 DC -5\nQ1 vout vp emit QNPN\nQ2 vc2 vn emit QNPN\nRC1 vcc vout 2.2k\nRC2 vcc vc2 2.2k\nItail emit vee DC 1.4m\nRload vout 0 82k\n.model QNPN NPN (IS=1e-15 BF=160 VAF=80 IKF=0.08 CJE=2p CJC=0.7p TF=50p TR=8n RB=90 RC=20 RE=1.8)\n.op\n.end\n"
+    },
+    {
+      "task_id": "w6a49xa90l03vyduq0x3", "controller_task_id": "r8n47qi8aspyru2m7j1m", "circuit_id": "diff-pair",
+      "prompt": "Repair this matched BJT differential pair to 30-34 dB differential gain, 50-120 dB CMRR, 0.4-0.6 mA tail current, and 0-20 mV offset. A verifier-only output load is present. Preserve a physical matched differential pair and practical bias/load values.",
+      "target_specs": {"differential_gain_db": [30.0, 34.0], "cmrr_db": [50.0, 120.0], "tail_current_a": [0.0004, 0.0006], "input_offset_v": [0.0, 0.02]}, "allowed_topologies": ["bjt-differential-pair-resistive-load"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260901, "verifier_augmentation": "Rsecret vout 0 18k",
+      "initial_netlist": "* BJT differential pair lower tail bias\nVp vp 0 DC 0 AC 1\nVn vn 0 DC 0 AC 0\nVCC vcc 0 DC 5\nVEE vee 0 DC -5\nQ1 vout vp emit QNPN\nQ2 vc2 vn emit QNPN\nRC1 vcc vout 4.7k\nRC2 vcc vc2 4.7k\nItail emit vee DC 0.8m\nRload vout 0 150k\n.model QNPN NPN (IS=1e-15 BF=200 VAF=100 IKF=0.1 CJE=1.6p CJC=0.6p TF=40p TR=7n RB=70 RC=15 RE=1.2)\n.op\n.end\n"
+    },
+    {
+      "task_id": "7a0plipoy7sa9digbusu", "controller_task_id": "pbepk96657ttnfefw2oi", "circuit_id": "buffer",
+      "prompt": "Repair this voltage follower to -0.5 to 0.2 dB gain, 3.5-4.5 ohm output impedance, and 0-10 mV input offset. A verifier-only output load is present. Preserve positive unity feedback closure from Vout to the inverting input and use practical components.",
+      "target_specs": {"gain_db": [-0.5, 0.2], "output_z_ohm": [3.5, 4.5], "input_offset_v": [0.0, 0.01]}, "allowed_topologies": ["noninverting-voltage-follower"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260902, "verifier_augmentation": "Rsecret Vout 0 8",
+      "initial_netlist": "* finite-gain voltage follower\nVin Vin 0 DC 0 AC 1\nEamp raw 0 Vin Vout 100\nRout raw Vout 500\nRload Vout 0 10k\n.op\n.end\n"
+    },
+    {
+      "task_id": "lj7qlpihovsd9cpht7cb", "controller_task_id": "ds8ee1qfi2dlmpwmallz", "circuit_id": "buffer",
+      "prompt": "Repair this voltage follower to -0.35 to 0.15 dB gain, 4.0-5.0 ohm output impedance, and 0-10 mV input offset. A verifier-only output load is present. Preserve positive unity feedback closure from Vout to the inverting input and use practical components.",
+      "target_specs": {"gain_db": [-0.35, 0.15], "output_z_ohm": [4.0, 5.0], "input_offset_v": [0.0, 0.01]}, "allowed_topologies": ["noninverting-voltage-follower"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260903, "verifier_augmentation": "Rsecret Vout 0 15",
+      "initial_netlist": "* finite-gain voltage follower\nVin Vin 0 DC 0 AC 1\nEamp raw 0 Vin Vout 200\nRout raw Vout 900\nRload Vout 0 15k\n.op\n.end\n"
+    },
+    {
+      "task_id": "0kxoyxsdt0l0g0uqkvpe", "controller_task_id": "o5bejp2xnyl5y1i7zxfj", "circuit_id": "buffer",
+      "prompt": "Repair this voltage follower to -0.7 to 0.2 dB gain, 3.0-4.0 ohm output impedance, and 0-10 mV input offset. A verifier-only output load is present. Preserve positive unity feedback closure from Vout to the inverting input and use practical components.",
+      "target_specs": {"gain_db": [-0.7, 0.2], "output_z_ohm": [3.0, 4.0], "input_offset_v": [0.0, 0.01]}, "allowed_topologies": ["noninverting-voltage-follower"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260904, "verifier_augmentation": "Rsecret Vout 0 33",
+      "initial_netlist": "* finite-gain voltage follower\nVin Vin 0 DC 0 AC 1\nEamp raw 0 Vin Vout 50\nRout raw Vout 300\nRload Vout 0 22k\n.op\n.end\n"
+    },
+    {
+      "task_id": "m8xtjdmzgvoqrzahg9n3", "controller_task_id": "14kkvmqolewvmtye5npp", "circuit_id": "summing-amp",
+      "prompt": "Repair this three-input inverting summer so each input gain is -0.5 to 0.5 dB and bandwidth is 2-5 MHz. A verifier-only passive is attached to the summing node. Preserve three real input resistors, output-derived negative feedback, signed inversion, and practical components.",
+      "target_specs": {"gain_v1_db": [-0.5, 0.5], "gain_v2_db": [-0.5, 0.5], "gain_v3_db": [-0.5, 0.5], "bandwidth_hz": [2000000.0, 5000000.0]}, "allowed_topologies": ["three-input-inverting-summer"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260905, "verifier_augmentation": "Csecret inv 0 47n",
+      "initial_netlist": "* three-input inverting summer\nV1 v1 0 DC 0 AC 0\nV2 v2 0 DC 0 AC 0\nV3 v3 0 DC 0 AC 0\nR1 v1 inv 10k\nR2 v2 inv 10k\nR3 v3 inv 10k\nRf inv Vout 10k\nEamp Vout 0 0 inv 100k\n.op\n.end\n"
+    },
+    {
+      "task_id": "4wktqqe6d500br6oplhd", "controller_task_id": "tc8fageorcvcuag0yb1i", "circuit_id": "summing-amp",
+      "prompt": "Repair this three-input inverting summer so each input gain is -0.5 to 0.5 dB and bandwidth is 2-5 MHz. A verifier-only passive is attached to the summing node. Preserve three real input resistors, output-derived negative feedback, signed inversion, and practical components.",
+      "target_specs": {"gain_v1_db": [-0.5, 0.5], "gain_v2_db": [-0.5, 0.5], "gain_v3_db": [-0.5, 0.5], "bandwidth_hz": [2000000.0, 5000000.0]}, "allowed_topologies": ["three-input-inverting-summer"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260906, "verifier_augmentation": "Csecret inv 0 100n",
+      "initial_netlist": "* three-input inverting summer scaled high\nV1 v1 0 DC 0 AC 0\nV2 v2 0 DC 0 AC 0\nV3 v3 0 DC 0 AC 0\nR1 v1 inv 15k\nR2 v2 inv 15k\nR3 v3 inv 15k\nRf inv Vout 15k\nEamp Vout 0 0 inv 80000\n.op\n.end\n"
+    },
+    {
+      "task_id": "t4q7dhz4yexzk72xw7fw", "controller_task_id": "db3dsgxfbez3a2cttcpr", "circuit_id": "summing-amp",
+      "prompt": "Repair this three-input inverting summer so each input gain is -0.5 to 0.5 dB and bandwidth is 2-5 MHz. A verifier-only passive is attached to the summing node. Preserve three real input resistors, output-derived negative feedback, signed inversion, and practical components.",
+      "target_specs": {"gain_v1_db": [-0.5, 0.5], "gain_v2_db": [-0.5, 0.5], "gain_v3_db": [-0.5, 0.5], "bandwidth_hz": [2000000.0, 5000000.0]}, "allowed_topologies": ["three-input-inverting-summer"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260907, "verifier_augmentation": "Csecret inv 0 220n",
+      "initial_netlist": "* three-input inverting summer scaled low\nV1 v1 0 DC 0 AC 0\nV2 v2 0 DC 0 AC 0\nV3 v3 0 DC 0 AC 0\nR1 v1 inv 6.8k\nR2 v2 inv 6.8k\nR3 v3 inv 6.8k\nRf inv Vout 6.8k\nEamp Vout 0 0 inv 120k\n.op\n.end\n"
+    },
+    {
+      "task_id": "ibqbcqkm8iv8pqsayhf8", "controller_task_id": "42itxjqylw2ipq8p6n4k", "circuit_id": "integrator",
+      "prompt": "Repair this leaky inverting integrator to 1.1-1.2 kHz unity-gain frequency, 35-45 dB DC gain, and 1-4 V output swing. A verifier-only feedback passive is present. Preserve an input resistor, load-bearing feedback capacitor, finite DC feedback path, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [1100.0, 1200.0], "dc_gain_db": [35.0, 45.0], "output_swing_v": [1.0, 4.0]}, "allowed_topologies": ["leaky-inverting-integrator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260908, "verifier_augmentation": "Csecret ninv Vout 2n",
+      "initial_netlist": "* leaky inverting integrator\nVin Vin 0 AC 1 SIN(0 1 1k)\nRin Vin ninv 10k\nCf ninv Vout 10n\nRf ninv Vout 1Meg\nEamp Vout 0 0 ninv 100k\n.op\n.end\n"
+    },
+    {
+      "task_id": "76e2gqksd5eac0iw6j0l", "controller_task_id": "b4fz9s3yieisac6a6ss5", "circuit_id": "integrator",
+      "prompt": "Repair this leaky inverting integrator to 0.9-1.0 kHz unity-gain frequency, 35-45 dB DC gain, and 1-4 V output swing. A verifier-only feedback passive is present. Preserve an input resistor, load-bearing feedback capacitor, finite DC feedback path, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [900.0, 1000.0], "dc_gain_db": [35.0, 45.0], "output_swing_v": [1.0, 4.0]}, "allowed_topologies": ["leaky-inverting-integrator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260909, "verifier_augmentation": "Csecret ninv Vout 10n",
+      "initial_netlist": "* leaky inverting integrator alternate scale\nVin Vin 0 AC 1 SIN(0 0.8 800)\nRin Vin ninv 8.2k\nCf ninv Vout 12n\nRf ninv Vout 820k\nEamp Vout 0 0 ninv 80000\n.op\n.end\n"
+    },
+    {
+      "task_id": "tno3476h78et8zsyyvg6", "controller_task_id": "sbont8l9g7bv4tro74mt", "circuit_id": "integrator",
+      "prompt": "Repair this leaky inverting integrator to 0.5-0.6 kHz unity-gain frequency, 30-45 dB DC gain, and 0.5-3 V output swing. A verifier-only feedback passive is present. Preserve an input resistor, load-bearing feedback capacitor, finite DC feedback path, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [500.0, 600.0], "dc_gain_db": [30.0, 45.0], "output_swing_v": [0.5, 3.0]}, "allowed_topologies": ["leaky-inverting-integrator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260910, "verifier_augmentation": "Csecret ninv Vout 47n",
+      "initial_netlist": "* leaky inverting integrator low capacitance\nVin Vin 0 AC 1 SIN(0 0.5 500)\nRin Vin ninv 15k\nCf ninv Vout 6.8n\nRf ninv Vout 1.5Meg\nEamp Vout 0 0 ninv 120k\n.op\n.end\n"
+    },
+    {
+      "task_id": "wx4jn52xqq3zo8cmtxg0", "controller_task_id": "sbg0fjswhy2mwv6q7hy9", "circuit_id": "differentiator",
+      "prompt": "Repair this practical inverting differentiator to 1.8-2.2 kHz unity-gain frequency, 18-24 dB high-frequency gain, and 0.8-1.5 V output swing. A verifier-only input passive is present. Preserve a load-bearing input capacitor, feedback resistor, high-frequency gain limiter, signed inversion, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [1800.0, 2200.0], "hf_gain_db": [18.0, 24.0], "output_swing_v": [0.8, 1.5]}, "allowed_topologies": ["band-limited-inverting-differentiator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260911, "verifier_augmentation": "Csecret Vin ninv 1n",
+      "initial_netlist": "* practical inverting differentiator\nVin Vin 0 AC 1 SIN(0 1 1k)\nRin Vin nm 1k\nC1 nm ninv 10n\nRf Vout ninv 10k\nEamp Vout 0 0 ninv 100k\nRload Vout 0 100k\n.op\n.end\n"
+    },
+    {
+      "task_id": "4uewjymwoicvs3k585jv", "controller_task_id": "tbxqlrrolb4s3gxfyhi6", "circuit_id": "differentiator",
+      "prompt": "Repair this practical inverting differentiator to 1.2-1.4 kHz unity-gain frequency, 25-32 dB high-frequency gain, and 0.8-2.5 V output swing. A verifier-only input passive is present. Preserve a load-bearing input capacitor, feedback resistor, high-frequency gain limiter, signed inversion, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [1200.0, 1400.0], "hf_gain_db": [25.0, 32.0], "output_swing_v": [0.8, 2.5]}, "allowed_topologies": ["band-limited-inverting-differentiator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260912, "verifier_augmentation": "Csecret Vin ninv 4.7n",
+      "initial_netlist": "* practical inverting differentiator alternate scale\nVin Vin 0 AC 1 SIN(0 0.8 800)\nRin Vin nm 1.5k\nC1 nm ninv 8.2n\nRf Vout ninv 15k\nEamp Vout 0 0 ninv 80000\nRload Vout 0 82k\n.op\n.end\n"
+    },
+    {
+      "task_id": "vq1zxzf1eas1v6a29ybb", "controller_task_id": "gat95scznnhke2ur1iac", "circuit_id": "differentiator",
+      "prompt": "Repair this practical inverting differentiator to 0.7-0.9 kHz unity-gain frequency, 35-45 dB high-frequency gain, and 1-4 V output swing. A verifier-only input passive is present. Preserve a load-bearing input capacitor, feedback resistor, high-frequency gain limiter, signed inversion, and practical components.",
+      "target_specs": {"unity_gain_freq_hz": [700.0, 900.0], "hf_gain_db": [35.0, 45.0], "output_swing_v": [1.0, 4.0]}, "allowed_topologies": ["band-limited-inverting-differentiator"],
+      "max_verifier_calls": 8, "max_codex_calls": 7, "timeout_s": 15.0, "seed": 20260913, "verifier_augmentation": "Csecret Vin ninv 22n",
+      "initial_netlist": "* practical inverting differentiator high gain\nVin Vin 0 AC 1 SIN(0 0.5 500)\nRin Vin nm 820\nC1 nm ninv 12n\nRf Vout ninv 18k\nEamp Vout 0 0 ninv 120k\nRload Vout 0 150k\n.op\n.end\n"
+    }
+  ]
+}

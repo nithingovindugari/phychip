@@ -1,0 +1,147 @@
+{
+  "schema": "phychip-sky130-opamp-campaign-v1",
+  "campaign_id": "phychip-sky130-opamp-v1",
+  "status": "preregistered-blocked",
+  "research_question": "At VDD=1.8 V and quiescent current <=100 uA, which of a telescopic cascode, folded cascode, or two-stage Miller-compensated op amp owns each region of the gain-bandwidth, noise, output-swing, load, power, and PVT-robustness trade space?",
+  "prerequisites": {
+    "v0_1_release_locally_validated": false,
+    "design_agent_clears_m1": false,
+    "sealed_eval_manifest_frozen": false
+  },
+  "prerequisite_evidence_sha256": {
+    "v0_1_release": null,
+    "design_agent_m1": null
+  },
+  "sealed_eval_manifest_sha256": null,
+  "pdk": {
+    "name": "sky130A",
+    "source_repository": "https://github.com/google/skywater-pdk",
+    "source_revision": null,
+    "required_models": [
+      {
+        "path": "libs.tech/ngspice/sky130.lib.spice",
+        "sha256": null
+      }
+    ]
+  },
+  "constraints": {
+    "vdd_nominal_v": 1.8,
+    "quiescent_current_max_a": 0.0001,
+    "discovery_temperature_c": 25,
+    "discovery_corner": "tt"
+  },
+  "discovery_grid": {
+    "load_capacitance_f": [
+      1e-12,
+      5e-12,
+      2e-11
+    ],
+    "minimum_open_loop_gain_db": [
+      50.0,
+      60.0,
+      70.0
+    ],
+    "minimum_unity_gain_bandwidth_hz": [
+      1000000.0,
+      5000000.0,
+      20000000.0
+    ],
+    "minimum_phase_margin_deg": 60.0
+  },
+  "pvt_replay_grid": {
+    "corners": [
+      "tt",
+      "ss",
+      "ff",
+      "sf",
+      "fs"
+    ],
+    "vdd_v": [
+      1.62,
+      1.8,
+      1.98
+    ],
+    "temperature_c": [
+      -40,
+      25,
+      125
+    ]
+  },
+  "metrics": [
+    "open_loop_gain_db",
+    "unity_gain_bandwidth_hz",
+    "phase_margin_deg",
+    "input_referred_noise_v_sqrt_hz",
+    "positive_output_swing_v",
+    "negative_output_swing_v",
+    "quiescent_current_a",
+    "pvt_yield"
+  ],
+  "topologies": [
+    {
+      "topology_id": "sky130-telescopic-cascode",
+      "template_status": "blocked-on-pdk",
+      "template_path": null,
+      "template_sha256": null,
+      "continuous_parameters": [
+        "input_pair_width",
+        "input_pair_length",
+        "cascode_width",
+        "cascode_length",
+        "load_width",
+        "load_length",
+        "tail_current",
+        "bias_voltages"
+      ]
+    },
+    {
+      "topology_id": "sky130-folded-cascode",
+      "template_status": "blocked-on-pdk",
+      "template_path": null,
+      "template_sha256": null,
+      "continuous_parameters": [
+        "input_pair_width",
+        "input_pair_length",
+        "fold_device_width",
+        "fold_device_length",
+        "load_width",
+        "load_length",
+        "tail_current",
+        "bias_voltages"
+      ]
+    },
+    {
+      "topology_id": "sky130-two-stage-miller",
+      "template_status": "blocked-on-pdk",
+      "template_path": null,
+      "template_sha256": null,
+      "continuous_parameters": [
+        "input_pair_width",
+        "input_pair_length",
+        "second_stage_width",
+        "second_stage_length",
+        "compensation_capacitance",
+        "nulling_resistance",
+        "tail_current",
+        "second_stage_current"
+      ]
+    }
+  ],
+  "budgets": {
+    "fixed_optimizer_calls_per_region": 64,
+    "model_guided_calls_per_region": 64,
+    "pvt_replays_per_finalist": 45
+  },
+  "arms": [
+    "fixed_topology_deterministic_sweep_tpe",
+    "model_guided_topology_and_experiment_selection"
+  ],
+  "promotion_gates": {
+    "all_designs_replay_under_pinned_environment_and_pdk": true,
+    "known_reward_attacks_accepted": 0,
+    "paired_success_or_hypervolume_ci95_lower_bound_gt": 0.0,
+    "held_out_topology_rule_beats_majority_baseline": true,
+    "manual_topology_plausibility_required": true
+  },
+  "claim_boundary": "A best netlist is design optimization. Autonomous research requires a baseline-beating paired result and a machine-checkable topology rule that predicts held-out conditions."
+}

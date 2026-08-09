@@ -1,0 +1,39 @@
+{
+  "schema": "phychip-eval-environment-v1",
+  "status": "recorded_from_primary_eval",
+  "python": "3.12",
+  "cuda_runtime": "platform-specific; use the original pod runner",
+  "packages": {
+    "accelerate": "1.13.0",
+    "datasets": "4.8.5",
+    "peft": "0.19.1",
+    "tokenizers": "0.22.2",
+    "torch": "2.13.0",
+    "transformers": "5.8.1",
+    "trl": "1.6.0"
+  },
+  "model": {
+    "base": "HuggingFaceTB/SmolLM3-3B-Base",
+    "base_revision": "d78a42f79198603e614095753484a04c10c2b940",
+    "chat_template_sha256": "3e0e275a527f249670056e0078e474eadbdd007c134b4fdfae5a7b3089702814",
+    "clean_sft_adapter_sha256": "2307ebd794046f3b0be8f8a4de07469f0e6045d91869d3e7058b1897b3936dff"
+  },
+  "primary_generation": {
+    "do_sample": false,
+    "max_new_tokens": 2560,
+    "prompt_mode": "sft-chat"
+  },
+  "ngspice": {
+    "required_major": "46",
+    "source_archive": "ngspice-46.tar.gz",
+    "source_sha256": "a0d1699af1940b06649276dcd6ff5a566c8c0cad01b2f7b5e99dedbb4d64c19b",
+    "primary_gpu_binary_sha256": null,
+    "primary_gpu_binary_hash_limitation": "The original summaries retain the full ngspice-46 banner but not the pod binary hash."
+  },
+  "container": {
+    "recipe": "phy-chip-env/docker/Dockerfile.ngspice46",
+    "base": "python:3.12.12-slim-bookworm",
+    "base_digest": "sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c",
+    "digest_scope": "multi-architecture OCI image index resolved 2026-07-21"
+  }
+}

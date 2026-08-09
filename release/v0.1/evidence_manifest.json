@@ -1,0 +1,227 @@
+{
+  "artifacts": {
+    "analogcoder_clean_sft_details": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/analogcoder_sft_chat/details.json",
+      "sha256": "5e24b1e4301f303aafc5a324936fce82874a8ba823c74a7eafa5f2e1be33bf72"
+    },
+    "analogcoder_clean_sft_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/analogcoder_sft_chat/summary.json",
+      "sha256": "e6725e69eb321b5af0d017ef415f6d9cf579ca207f136309d181f75474b7e672"
+    },
+    "analogcoder_grpo_v3_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_v3_corrected/analogcoder_sft_chat/summary.json",
+      "sha256": "d6da952a8981a061f9fdb1887fbd163222c1e0c260092b5d452a9b6021dd5aae"
+    },
+    "bench_v1_clean_sft_details": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/bench_v1_sft_chat/details.json",
+      "sha256": "79325144e191543b370d91cad7ac69aa68a39d92f9fa31f6436f98179e48d647"
+    },
+    "bench_v1_clean_sft_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/bench_v1_sft_chat/summary.json",
+      "sha256": "a18116b21acdb6cf3138ce65ca437615434745daea007a4839899876e4cdca49"
+    },
+    "bench_v1_grpo_v3_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_v3_corrected/bench_v1_sft_chat/summary.json",
+      "sha256": "7b9496c59ae4bcb58341a0532e2cd98f47dd669ac6724ec588ed262b79b739f6"
+    },
+    "bench_v2_clean_sft_details": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/bench_v2_sft_chat/details.json",
+      "sha256": "18b6807dbe42af067b48473619fdadd9101732f216142a6b0cca4b09fe58ffe3"
+    },
+    "bench_v2_clean_sft_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/bench_v2_sft_chat/summary.json",
+      "sha256": "53870ae5644b6b7d82f9d94b2e2d8c9df45de401579e2d6317a99248709463d7"
+    },
+    "bench_v2_grpo_v3_summary": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_v3_corrected/bench_v2_sft_chat/summary.json",
+      "sha256": "2b46551b4eb896d906ddec4b02abfbd85ed31b64a8917b7e2ca3c0ad9c542b72"
+    },
+    "clean_sft_adapter": {
+      "distribution": "external-release",
+      "path": "checkpoints/sft_clean_v1/adapter_model.safetensors",
+      "sha256": "2307ebd794046f3b0be8f8a4de07469f0e6045d91869d3e7058b1897b3936dff"
+    },
+    "clean_sft_adapter_config": {
+      "distribution": "external-release",
+      "path": "checkpoints/sft_clean_v1/adapter_config.json",
+      "sha256": "e1f24bcce9b6275b00e7e0e7228b8ac342bb46327999d1207d643077e6f69180"
+    },
+    "clean_sft_chat_template": {
+      "distribution": "external-release",
+      "path": "checkpoints/sft_clean_v1/chat_template.jinja",
+      "sha256": "3e0e275a527f249670056e0078e474eadbdd007c134b4fdfae5a7b3089702814"
+    },
+    "clean_sft_corpus": {
+      "distribution": "external-release",
+      "path": "data/final_data/sft_v0_verified_v1/sft_training_ready.jsonl",
+      "sha256": "02af3e6c58b668acec130850ea31d468fb8fd49f938272854d4d857b0fd39b9b"
+    },
+    "decontamination_report": {
+      "distribution": "external-release",
+      "path": "data/final_data/sft_v0_verified_v1/decontam_report.json",
+      "sha256": "3f3ad5ef03df278217ab6d4e6344335203b457ba22888e263f1a0de6b6d112d9"
+    },
+    "dynamic_data_report": {
+      "distribution": "external-release",
+      "path": "data/final_data/sft_v0_verified_v1/sft_dynamic_report.json",
+      "sha256": "f06532f66f2d20296de86698c9f8b7131ca1f3b30f3aec0cf8c750faa6e339e1"
+    },
+    "feedback_v3_benchmark": {
+      "distribution": "repository",
+      "path": "phy-chip-env/benchmarks/feedback_use_v3.json",
+      "sha256": "f05460e466cf855aadcb8fb7ab0c1b255dff38e246242f19d658c8e8515526fb"
+    },
+    "feedback_v3_manual_audit": {
+      "distribution": "repository",
+      "path": "poc_experiments/results/feedback_use_v3_manual_audit_2026-08-03.json",
+      "sha256": "c1deeb7c1b575088aa5f3a07dc88715c7fd0fd43bc7e4f37792e8e9d024e797c"
+    },
+    "feedback_v3_summary": {
+      "distribution": "repository",
+      "path": "poc_experiments/results/feedback_use_v3_summary_2026-08-03.json",
+      "sha256": "466c8df27778f7ee7cb6bb1b8cb90f7b63805f0be78808401e64b8f5cc1e1c11"
+    },
+    "parameter_search_v1_result": {
+      "distribution": "repository",
+      "path": "phy-chip-env/benchmarks/parameter_search_v1_result.json",
+      "sha256": "4ef73f03b380d22f9e6b76fcb09fc68b5e306843b8ff6d5798ffb6b1339e8fcc"
+    },
+    "phy_chip_env_wheel": {
+      "distribution": "external-release",
+      "path": "phy-chip-env/dist/phy_chip_env-0.1.0-py3-none-any.whl",
+      "sha256": "d668f0470cd0a1849b8e87be9bbfcf1dec16086771370446ed2d66b1674b454e"
+    },
+    "physics_mmlu_clean_sft_comparison": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/sft_clean_v1/physics_mmlu_comparison.json",
+      "sha256": "fc6ba7f3fbe297145dedcafdeae72c4253c68dc539722ed241c7e14b8abe3e8d"
+    },
+    "rank64_baseline_completions": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_rank64_smoke_v1/baseline_holdout_current_rescore_v2.jsonl",
+      "sha256": "d0ade5977743c67d3fb66d4e06a49d8907947807f49134117f211257533006f6"
+    },
+    "rank64_manual_audit": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_rank64_smoke_v1/MANUAL_AUDIT_CURRENT_V2.md",
+      "sha256": "c46b57a6b3d6bbd3e598819ecb94c020a529a1fa875034d2c5129d3d17267bd4"
+    },
+    "rank64_matched_comparison": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_rank64_smoke_v1/matched_current_rescore_v2_comparison.json",
+      "sha256": "618e2b25ed6352797b0e5cb1997de189dc86865ae329967f7c4deadf54087f1f"
+    },
+    "rank64_trained_completions": {
+      "distribution": "maintainer-evidence",
+      "path": "eval_results/grpo_rank64_smoke_v1/trained_holdout_current_rescore_v2.jsonl",
+      "sha256": "9ee822426bef7a92ee525b243836ee71ef7b2e857f794797bf4c8494967a0683"
+    },
+    "scorer_v9_diagnosis": {
+      "distribution": "repository",
+      "path": "poc_experiments/results/rlvr_diagnosis_2026-07-22.md",
+      "sha256": "de729b5f1fb2c2bf8c918a4c22a7db67b00f21a65db94defe36df9c3336f1bc9"
+    },
+    "scorer_v9_pilot_audit": {
+      "distribution": "repository",
+      "path": "poc_experiments/results/rlvr_candidate_v8_audit_2026-07-22.md",
+      "sha256": "3c0dcdde254bf1d7435321944eb650cb2ec8cf12928b84cb6906b2155ad6d086"
+    },
+    "scorer_v9_pilot_summary": {
+      "distribution": "repository",
+      "path": "poc_experiments/results/rlvr_scorer_v9_pilot_summary.json",
+      "sha256": "d5a05a8cb8b8a6f7a049e35fe3ade3871e5574a15da1cd6d8fff8fb8c9341d69"
+    }
+  },
+  "claims": {
+    "clean_sft": {
+      "analogcoder_raw_spice_proxy": {
+        "n": 24,
+        "passed": 21
+      },
+      "bench_v1": {
+        "n": 40,
+        "passed": 23
+      },
+      "bench_v2": {
+        "n": 46,
+        "passed": 25
+      },
+      "physics_mmlu_noninferiority_established": false
+    },
+    "corrected_grpo_v3": {
+      "analogcoder_raw_spice_proxy": {
+        "n": 24,
+        "passed": 16
+      },
+      "bench_v1": {
+        "n": 40,
+        "passed": 19
+      },
+      "bench_v2": {
+        "n": 46,
+        "passed": 10
+      },
+      "release_candidate_accepted": false
+    },
+    "feedback_use_v3": {
+      "circuit_families": 8,
+      "component_practical_successes": 27,
+      "controller_error_arms": 10,
+      "family_exact_sign_p": 0.0625,
+      "family_positive": 5,
+      "family_tied": 3,
+      "feedback_blind_successes": 10,
+      "full_feedback_successes": 19,
+      "paired_tasks": 24,
+      "promotion_gate_passed": false,
+      "sealed_or_training_eligible": false,
+      "topology_plausible_successes": 28
+    },
+    "matched_rank64": {
+      "baseline": {
+        "n": 53,
+        "passed": 3
+      },
+      "delta_percentage_points": 5.660377358490566,
+      "mcnemar_exact_p": 0.375,
+      "paired_ci95_percentage_points": [
+        -1.8867924528301887,
+        13.20754716981132
+      ],
+      "rl_generalization_established": false,
+      "trained": {
+        "n": 53,
+        "passed": 6
+      }
+    },
+    "scorer_v9_pilot": {
+      "easy_prompts": 0,
+      "exact_successes": 18,
+      "k": 8,
+      "known_invalid_frontier_rows": 0,
+      "mixed_families": 7,
+      "mixed_prompts": 11,
+      "optimizer_steps": 0,
+      "rollouts": 384,
+      "specs": 48
+    }
+  },
+  "release_status": "draft_from_dirty_feature_branch",
+  "schema": "phychip-v0.1-evidence-manifest-v2",
+  "source_git": {
+    "branch": "feature/autonomous-chip-research",
+    "dirty_path_count": 10,
+    "head": "3fcb6a0c777ad34b5281b8f7195af8aafe022049",
+    "working_tree_dirty": true,
+    "working_tree_state_sha256": "a46617dafb17b540121cb1ef2702013a1368066c40d06cfb069f0514d1b8f55f"
+  }
+}

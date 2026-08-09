@@ -1,0 +1,385 @@
+{
+  "audit_adjusted_sensitivity": {
+    "component_practical": {
+      "blind_only_successes": 0,
+      "feedback_blind_successes": 9,
+      "full_feedback_successes": 18,
+      "full_only_successes": 9,
+      "paired_delta": 0.375,
+      "two_sided_exact_mcnemar_p": 0.00390625
+    },
+    "topology_plausible": {
+      "blind_only_successes": 0,
+      "feedback_blind_successes": 10,
+      "full_feedback_successes": 18,
+      "full_only_successes": 8,
+      "paired_delta": 0.3333333333333333,
+      "two_sided_exact_mcnemar_p": 0.0078125
+    }
+  },
+  "component_practical_successes": 27,
+  "decisions": [
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "8b3c8a3bce5e2ef93dffbf930738d3cbdc9bf0893a93c6dbde01bf1210eda9b7",
+      "known_reward_attack": false,
+      "task_id": "0kxoyxsdt0l0g0uqkvpe",
+      "topology_plausible": true,
+      "winning_event_hash": "19d643552abfaf9fed0e3a381114e6a620938dd2f45e97d7982d3e6ad3551285"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "3a7b353661bab71cf2cafee6d4af74c7e570e8cbe4d675106f38f1301485bfe5",
+      "known_reward_attack": false,
+      "task_id": "1tgy5ckw5o9fcigqnl1x",
+      "topology_plausible": true,
+      "winning_event_hash": "b702a21475cb0adcf7f71851eac95c96fd92d84deea1aec985a91f25bf0001ce"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "14458d87063191a5113364ca784ae30cf2922197d0f625618fed03e5274fe4cb",
+      "known_reward_attack": false,
+      "task_id": "1v5v62kkn3cu1sqbtcyt",
+      "topology_plausible": true,
+      "winning_event_hash": "caf8a182f43728916df64d23a0e73c7e16f326f8d644fb8cc4b9d862a2014212"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "5a4aafa1a43ae32867935e900337914d8611fcc054377e31482e1fe94b76f92b",
+      "known_reward_attack": false,
+      "task_id": "3vulbw3pxp63g2avs0ln",
+      "topology_plausible": true,
+      "winning_event_hash": "ae001501e7573ecf00be46266ee6193b2bc40c7546dae960069ea6ca3d382fdc"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "553f0529afad3ca4136779ca988e911a2e1d6a0f571690b7ac09e7c2aa35952b",
+      "known_reward_attack": false,
+      "task_id": "4uewjymwoicvs3k585jv",
+      "topology_plausible": true,
+      "winning_event_hash": "da10365d331d96615de023a95349d8ae96f74a10078b90f45885d3eb3314e096"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "823a538fe801a17589bef9e5d01e750db883a196fde475fe5be2a7e1a5b424ce",
+      "known_reward_attack": false,
+      "task_id": "4wktqqe6d500br6oplhd",
+      "topology_plausible": true,
+      "winning_event_hash": "38cd8d12c570b299bb83e96e8f2714c6752e6af99f7db70c23ae4aa7d68d8cf2"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "dd361198664bca662e6ebedffaf166d88a12c065f831a5767e62644e61566add",
+      "known_reward_attack": false,
+      "task_id": "6hmpuil4p8pq5mbwal84",
+      "topology_plausible": true,
+      "winning_event_hash": "6efd7513e14e5cc19a714d1575413a709b2eb2fa4c8d385fd5c025318dfd2173"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": false,
+      "episode_end_hash": "d53ce241c14e272993fda430670aaf7377886df47bde90b1d1519191708bb6f8",
+      "known_reward_attack": false,
+      "task_id": "7a0plipoy7sa9digbusu",
+      "topology_plausible": false,
+      "winning_event_hash": "617935317bdaad9cf3128958516c84437346dc7b7db484ea4f6e1b88ca3623e4"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "c9e499ef82bd43921481fe2d43fdfddc1c21811e072d3ffb5149a2f5254e81b7",
+      "known_reward_attack": false,
+      "task_id": "9r8jgormxbek92l8s8wp",
+      "topology_plausible": true,
+      "winning_event_hash": "77439b9909c7649251d78e1b04124e9d2e277c26dc2d3f694a021fa8d3a43d95"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "8714b8085858e6e8ea479363210de1ae9a04cfc4f5fd9707ae0e8930931b982c",
+      "known_reward_attack": false,
+      "task_id": "gx3xxqu1bg4psm0zkrnc",
+      "topology_plausible": true,
+      "winning_event_hash": "30c60bcecb292e552fa069b3e91d234ca842479b649e907267b8a5e6e4668206"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "f433155826310e56742c9f7908987b608e3b9122c404c16d4eb4d0fc9f23f853",
+      "known_reward_attack": false,
+      "task_id": "ibqbcqkm8iv8pqsayhf8",
+      "topology_plausible": true,
+      "winning_event_hash": "70b1ea8f645d43483c9c1c7f408ce07748e09ce9f4e4d201aebf0b6ee871acee"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "612f7f28c6b5639586b62414a575683f10968ba2e0026886d8a1901cc1252e88",
+      "known_reward_attack": false,
+      "task_id": "km1ipfezar7zya8mjxsn",
+      "topology_plausible": true,
+      "winning_event_hash": "44dcfb74126039889a2e415fcd1bdcf88ff7df8c76454dcee36751b628fea900"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "7abf03041b91307e26e6920004a2b9b4d55a523db13e4f22c036c8bac31f8235",
+      "known_reward_attack": false,
+      "task_id": "m8xtjdmzgvoqrzahg9n3",
+      "topology_plausible": true,
+      "winning_event_hash": "1c661e3122964886a48820e22b69ca7c13cfa995b6bbeb6bf1fdd112de19a1e1"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "43dda2fd2cc1c3f06c54df91bf30130fc8b253e5e7c51f68ecd6f00fce8a6ae8",
+      "known_reward_attack": false,
+      "task_id": "oftqx8x047y9pkcv30m4",
+      "topology_plausible": true,
+      "winning_event_hash": "80bd6bc0dece23bd71593fcc809ad6ec9f247ce936086ad72560df0508c130ef"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "1260496361c37e9f2179f415c8cf66217c8815ae4cc98f8be36a847d15fe04e7",
+      "known_reward_attack": false,
+      "task_id": "t4q7dhz4yexzk72xw7fw",
+      "topology_plausible": true,
+      "winning_event_hash": "005b1b69f4a196cde5922c2675b382d2b7bf005babc6dab411d2baddbb9b5533"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "c73bd3dc6a4019ce234239ab2772e089cfdbc3ac6102b31b89c4dcef571e53fd",
+      "known_reward_attack": false,
+      "task_id": "tno3476h78et8zsyyvg6",
+      "topology_plausible": true,
+      "winning_event_hash": "d4ea0477bf04ed4ea98099a495731dbb392efee5ec16693250b1762fae1187ec"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "e88d09ccbe4ac88afc4703cfb8efb5bde4d481ec5fb75837bef1955547ddb1c6",
+      "known_reward_attack": false,
+      "task_id": "vq1zxzf1eas1v6a29ybb",
+      "topology_plausible": true,
+      "winning_event_hash": "3a1e3bd65f4c35cdcaf9f9a715ab8f5fae7940365027fbb8b7ffa8ccf7be1207"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "255a2684aed7e154a3510965c2d19f1b3a53a7359eb5c5d048a6904127be32aa",
+      "known_reward_attack": false,
+      "task_id": "w6a49xa90l03vyduq0x3",
+      "topology_plausible": true,
+      "winning_event_hash": "7490baa38526213b4c60071fd79d153291b01f4473fa4b12917abcb941c4e6ce"
+    },
+    {
+      "arm": "full_feedback",
+      "component_practical": true,
+      "episode_end_hash": "b3097b1444a0b9fbe15ca9c70cdc4140d95f128012d64771bb6e43cd38a8091e",
+      "known_reward_attack": false,
+      "task_id": "wx4jn52xqq3zo8cmtxg0",
+      "topology_plausible": true,
+      "winning_event_hash": "cbcdc93eab28ed3e70ba3fbe45082cc7763c07169d84beff7f1003ebe8dbee66"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "0461480c78645bf84e8cc9c2ca75aa816bc0d7d2d6025d14b465eb6172924216",
+      "known_reward_attack": false,
+      "task_id": "1tgy5ckw5o9fcigqnl1x",
+      "topology_plausible": true,
+      "winning_event_hash": "af962a944a02740609edeeca8000f30e6427c289a4eb6a9395bbc82b89dbbed4"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "2ca00ee68d1244cb9327a380e1fe81dbae0bec6315b66ccb613cb6e5d7addbb1",
+      "known_reward_attack": false,
+      "task_id": "3vulbw3pxp63g2avs0ln",
+      "topology_plausible": true,
+      "winning_event_hash": "bb34612a45205f1521ab852bc469295e61a05d365720631fd6ff3593f6c208d1"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "96a6b8886cc63c988be1b7d800d1d75a2e3224b748e55a6d894c09843301578f",
+      "known_reward_attack": false,
+      "task_id": "6hmpuil4p8pq5mbwal84",
+      "topology_plausible": true,
+      "winning_event_hash": "1222b53127fe8d55a6a1726a3ce6dc129b3b9b0b6a55947b816423f1eb31ee3b"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "749ca6c018d1fa26dc19354c32f74e7ffa6fcf9debc4fec2a7aff4599cc3583a",
+      "known_reward_attack": false,
+      "task_id": "9r8jgormxbek92l8s8wp",
+      "topology_plausible": true,
+      "winning_event_hash": "bbf54b30c70e503dea7021390651f89088cfd9a27a52b0ce8edc037b77c4979f"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "2ca0cbf17cc312d5d4a4f8de4f82b238d52aca3e80456eee7121148f479913c2",
+      "known_reward_attack": false,
+      "task_id": "gx3xxqu1bg4psm0zkrnc",
+      "topology_plausible": true,
+      "winning_event_hash": "0310e20882935aaefb8b178bdf491f81b97b069a4c50e273f3a0f23f5e12de00"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "c0fd004ab453409a0bd0f6815a3ee70834ac998dc2e97dc71b60ed11ef05a101",
+      "known_reward_attack": false,
+      "task_id": "ibqbcqkm8iv8pqsayhf8",
+      "topology_plausible": true,
+      "winning_event_hash": "bf8d289f584be63ca783401855d465865442569e75778ddd827dd375ea776a2e"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "e8059813457e13b8868e7e775ec8bc17ce3606fef4b22c9303b407b839c125cb",
+      "known_reward_attack": false,
+      "task_id": "km1ipfezar7zya8mjxsn",
+      "topology_plausible": true,
+      "winning_event_hash": "03c597c23f48a57628f59fc6232e4dcbe7ee295168cb7bc32b1645dd0db34e03"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "3c07d35e0a0f0f0171e7e2503a240c49a060f7e0deec8eceb01f6f7dfe346719",
+      "known_reward_attack": false,
+      "task_id": "oftqx8x047y9pkcv30m4",
+      "topology_plausible": true,
+      "winning_event_hash": "d3c54cee4d7dcf0dec24c10377b06dfb235c580bb677101de7cffbe8cd48c524"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": false,
+      "episode_end_hash": "8229a4aa5a74e5f5837c380612254968f6c45468912d68b4694607a548e57d86",
+      "known_reward_attack": false,
+      "task_id": "t4q7dhz4yexzk72xw7fw",
+      "topology_plausible": true,
+      "winning_event_hash": "f1565f4ef5a777e4ca741f4d672a3011b75eb5c83193fa07db258d185bcd3b8b"
+    },
+    {
+      "arm": "feedback_blind",
+      "component_practical": true,
+      "episode_end_hash": "943a2bc2b6b8b3a25000b6a4c0a481b710db2fa8ed62a400927280da627d0171",
+      "known_reward_attack": false,
+      "task_id": "w6a49xa90l03vyduq0x3",
+      "topology_plausible": true,
+      "winning_event_hash": "df64c0e02d68184ed2a8f3cb51568f1e9e058e723399be8f5faa4d7d3faf9cc7"
+    }
+  ],
+  "episode_end_hashes": {
+    "feedback_blind": {
+      "0kxoyxsdt0l0g0uqkvpe": "0b1e7c509e9643b770c3a822f0a06df2781e3209e50dc1a26ac1fc9e49a4a1a0",
+      "1tgy5ckw5o9fcigqnl1x": "0461480c78645bf84e8cc9c2ca75aa816bc0d7d2d6025d14b465eb6172924216",
+      "1v5v62kkn3cu1sqbtcyt": "5525f829cf8d69914656351bb6bf713a006050e92d8bbfa53a655e35a6ab0a1e",
+      "3vulbw3pxp63g2avs0ln": "2ca00ee68d1244cb9327a380e1fe81dbae0bec6315b66ccb613cb6e5d7addbb1",
+      "44uzjz356f59pjzqdt0r": "8fd5e0d5e5217f3b46941f52cbb7161180e96b87db895bcf228ea0b3a9779a73",
+      "4uewjymwoicvs3k585jv": "10f8631ea39dcacef8c264d901fd3ce41e468644968bc686ea4638005f3eb412",
+      "4wktqqe6d500br6oplhd": "5b2d40f226ac00ac7e22b2afbaae8263349f3e969febe1dc60fff8ea130b3eff",
+      "6hmpuil4p8pq5mbwal84": "96a6b8886cc63c988be1b7d800d1d75a2e3224b748e55a6d894c09843301578f",
+      "76e2gqksd5eac0iw6j0l": "c26fc078fdb6491f95fd08cb4379bdaaee965a3c16a7ba32f6957348123e2907",
+      "7a0plipoy7sa9digbusu": "4d9a11876a785dfa5b876819ca013fe20fc6f0fb1abd497eaf6a8b0b04b0ddd9",
+      "9r8jgormxbek92l8s8wp": "749ca6c018d1fa26dc19354c32f74e7ffa6fcf9debc4fec2a7aff4599cc3583a",
+      "gx3xxqu1bg4psm0zkrnc": "2ca0cbf17cc312d5d4a4f8de4f82b238d52aca3e80456eee7121148f479913c2",
+      "ibqbcqkm8iv8pqsayhf8": "c0fd004ab453409a0bd0f6815a3ee70834ac998dc2e97dc71b60ed11ef05a101",
+      "km1ipfezar7zya8mjxsn": "e8059813457e13b8868e7e775ec8bc17ce3606fef4b22c9303b407b839c125cb",
+      "lj7qlpihovsd9cpht7cb": "b31a46f8fa7dd505e808429938491e5e54c4909d1107a516fdb5fb6bd6ea8fab",
+      "m8xtjdmzgvoqrzahg9n3": "06bf97dd28fe014d7e883d77c9a0f066da0a8c9c44c67b31258f714260fc3e94",
+      "mqkwj0gsflvk8je6f3cw": "6af6f259a131656176dd12b10179b334710833f50eacb4e97236c913d1ab1fc3",
+      "oftqx8x047y9pkcv30m4": "3c07d35e0a0f0f0171e7e2503a240c49a060f7e0deec8eceb01f6f7dfe346719",
+      "t4q7dhz4yexzk72xw7fw": "8229a4aa5a74e5f5837c380612254968f6c45468912d68b4694607a548e57d86",
+      "tno3476h78et8zsyyvg6": "eca98f9ac0fe0b4ee224362809836a435c7a49d9901856d84a830872d52847f5",
+      "vq1zxzf1eas1v6a29ybb": "1307a473ac508b2db5f859ee5e031ef0e0f1ed3eef165c306bbdddaef0247b32",
+      "w6a49xa90l03vyduq0x3": "943a2bc2b6b8b3a25000b6a4c0a481b710db2fa8ed62a400927280da627d0171",
+      "wtyzx09rn6yjbhawu9qh": "9355f57dcc5b3970b493b6fbe343f608d837fcaa183280ded7a4442ae59ec0b9",
+      "wx4jn52xqq3zo8cmtxg0": "1781bc52f2a5ad74731bffc322201a9406fa40f340c21766596faaa7f845b154"
+    },
+    "full_feedback": {
+      "0kxoyxsdt0l0g0uqkvpe": "8b3c8a3bce5e2ef93dffbf930738d3cbdc9bf0893a93c6dbde01bf1210eda9b7",
+      "1tgy5ckw5o9fcigqnl1x": "3a7b353661bab71cf2cafee6d4af74c7e570e8cbe4d675106f38f1301485bfe5",
+      "1v5v62kkn3cu1sqbtcyt": "14458d87063191a5113364ca784ae30cf2922197d0f625618fed03e5274fe4cb",
+      "3vulbw3pxp63g2avs0ln": "5a4aafa1a43ae32867935e900337914d8611fcc054377e31482e1fe94b76f92b",
+      "44uzjz356f59pjzqdt0r": "4613520aff56c7306b6a33147cb0e53ee5ea01c6efce399a0830ad832da7dda8",
+      "4uewjymwoicvs3k585jv": "553f0529afad3ca4136779ca988e911a2e1d6a0f571690b7ac09e7c2aa35952b",
+      "4wktqqe6d500br6oplhd": "823a538fe801a17589bef9e5d01e750db883a196fde475fe5be2a7e1a5b424ce",
+      "6hmpuil4p8pq5mbwal84": "dd361198664bca662e6ebedffaf166d88a12c065f831a5767e62644e61566add",
+      "76e2gqksd5eac0iw6j0l": "9b668635b950e6c99181051fee2fd76d872f9a832f148b149c21088d7f31f2c6",
+      "7a0plipoy7sa9digbusu": "d53ce241c14e272993fda430670aaf7377886df47bde90b1d1519191708bb6f8",
+      "9r8jgormxbek92l8s8wp": "c9e499ef82bd43921481fe2d43fdfddc1c21811e072d3ffb5149a2f5254e81b7",
+      "gx3xxqu1bg4psm0zkrnc": "8714b8085858e6e8ea479363210de1ae9a04cfc4f5fd9707ae0e8930931b982c",
+      "ibqbcqkm8iv8pqsayhf8": "f433155826310e56742c9f7908987b608e3b9122c404c16d4eb4d0fc9f23f853",
+      "km1ipfezar7zya8mjxsn": "612f7f28c6b5639586b62414a575683f10968ba2e0026886d8a1901cc1252e88",
+      "lj7qlpihovsd9cpht7cb": "3329f91513794b20a60edded64d1f50482a3fee556dc86e06f3bf54c3b98bb3d",
+      "m8xtjdmzgvoqrzahg9n3": "7abf03041b91307e26e6920004a2b9b4d55a523db13e4f22c036c8bac31f8235",
+      "mqkwj0gsflvk8je6f3cw": "9cf38b5fb80445a4870bc707aa81082bdff2bb8b90b017db2c13ff0bebb0ef2d",
+      "oftqx8x047y9pkcv30m4": "43dda2fd2cc1c3f06c54df91bf30130fc8b253e5e7c51f68ecd6f00fce8a6ae8",
+      "t4q7dhz4yexzk72xw7fw": "1260496361c37e9f2179f415c8cf66217c8815ae4cc98f8be36a847d15fe04e7",
+      "tno3476h78et8zsyyvg6": "c73bd3dc6a4019ce234239ab2772e089cfdbc3ac6102b31b89c4dcef571e53fd",
+      "vq1zxzf1eas1v6a29ybb": "e88d09ccbe4ac88afc4703cfb8efb5bde4d481ec5fb75837bef1955547ddb1c6",
+      "w6a49xa90l03vyduq0x3": "255a2684aed7e154a3510965c2d19f1b3a53a7359eb5c5d048a6904127be32aa",
+      "wtyzx09rn6yjbhawu9qh": "09ae5e4da8ad9fbdaf2d216ff4c8c9c6ce86a3a465b53f9ea7ab64ae098d7859",
+      "wx4jn52xqq3zo8cmtxg0": "b3097b1444a0b9fbe15ca9c70cdc4140d95f128012d64771bb6e43cd38a8091e"
+    }
+  },
+  "execution_evidence": {
+    "blind_controller": "codex-cli-feedback-blind:gpt-5.6-sol:2a0f1352ea461d29",
+    "codex_cli_version": "codex-cli 0.146.0",
+    "controller_errors": [
+      {"arm": "full_feedback", "controller_calls": 4, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 3, "first_arm": "feedback_blind", "task_id": "44uzjz356f59pjzqdt0r"},
+      {"arm": "full_feedback", "controller_calls": 1, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 0, "first_arm": "full_feedback", "task_id": "76e2gqksd5eac0iw6j0l"},
+      {"arm": "full_feedback", "controller_calls": 1, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 0, "first_arm": "feedback_blind", "task_id": "lj7qlpihovsd9cpht7cb"},
+      {"arm": "full_feedback", "controller_calls": 2, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 1, "first_arm": "full_feedback", "task_id": "mqkwj0gsflvk8je6f3cw"},
+      {"arm": "full_feedback", "controller_calls": 1, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 0, "first_arm": "feedback_blind", "task_id": "wtyzx09rn6yjbhawu9qh"},
+      {"arm": "feedback_blind", "controller_calls": 7, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 6, "first_arm": "feedback_blind", "task_id": "44uzjz356f59pjzqdt0r"},
+      {"arm": "feedback_blind", "controller_calls": 5, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 4, "first_arm": "full_feedback", "task_id": "4wktqqe6d500br6oplhd"},
+      {"arm": "feedback_blind", "controller_calls": 2, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 1, "first_arm": "feedback_blind", "task_id": "m8xtjdmzgvoqrzahg9n3"},
+      {"arm": "feedback_blind", "controller_calls": 2, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 1, "first_arm": "full_feedback", "task_id": "mqkwj0gsflvk8je6f3cw"},
+      {"arm": "feedback_blind", "controller_calls": 2, "controller_timeout_s": 300.0, "error_class": "TimeoutExpired", "failed_attempt": 1, "first_arm": "feedback_blind", "task_id": "wtyzx09rn6yjbhawu9qh"}
+    ],
+    "full_controller": "codex-cli:gpt-5.6-sol:8a50cccc88607a0c",
+    "manifest_sha256": "bedb8014a8560a43f2db8b19830827533dd15e6ce1e447760b544ce0372621ea",
+    "model": "gpt-5.6-sol",
+    "rollout_id": "preflight-v3",
+    "runner_source_sha256": "e5aad05b44bfa4a7771a5bbf20a302b64acc0244c9f19c21786ad5dac5b26f0e",
+    "run_configuration_not_bound_by_v1_manifest": {
+      "controller_timeout_s": 300.0,
+      "max_workers": 4
+    },
+    "schedule_seed": 20260801,
+    "terminal_states": {
+      "feedback_blind": {
+        "all_specs_met": 10,
+        "budget_exhausted": 9,
+        "controller_error": 5
+      },
+      "full_feedback": {
+        "all_specs_met": 19,
+        "budget_exhausted": 0,
+        "controller_error": 5
+      }
+    }
+  },
+  "known_reward_attacks_accepted": 0,
+  "notes": "Reviewed every successful winning netlist. The full-feedback buffer 7a0plipoy7sa9digbusu inserts a gain-of-two pre-stage ahead of the unity-feedback buffer, so it is not accepted as a plausible voltage follower and its 8.008-kohm series-output construction is not accepted as practical. The blind summing-amplifier t4q7dhz4yexzk72xw7fw uses 10-ohm input and feedback resistors and is not accepted as component-practical. No accepted success removes the load-bearing family topology or bypasses a hidden verifier passive.",
+  "protocol_sha256": "1240d65baa4d93741e69636478696e1eaf800654d34bc2a4cba4c4ad64e8cc96",
+  "reviewed_at": "2026-08-03T13:58:24-04:00",
+  "reviewer_type": "primary_research_review",
+  "schema": "phychip-feedback-manual-audit-v1",
+  "successful_circuits_reviewed": 29,
+  "task_set_sha256": "d3d857284b76940bbb9d1bbd82f0061862503033fe62ab478b568d5302551d79",
+  "topology_plausible_successes": 28
+}

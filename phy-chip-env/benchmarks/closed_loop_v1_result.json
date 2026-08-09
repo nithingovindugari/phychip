@@ -1,0 +1,78 @@
+{
+  "schema": "phychip-closed-loop-comparison-result-v1",
+  "benchmark_id": "phychip-closed-loop-v1",
+  "benchmark_status": "frozen-development",
+  "task_set_sha256": "55045f6e16e4833d96a144ef3b0ec7dddb87645fdb3db7da07d785edc6da7b46",
+  "protocol_sha256": "492c310aaeffa843e4b03af39d0a40a301ebeea475e9a173a3bb95156b8326e5",
+  "executed_at": "2026-07-29",
+  "scorer_semantics": "phy_chip_env.score@v9",
+  "ngspice_major": 46,
+  "evidence_limitation": "The aggregate and terminal hashes are preserved here; raw model and baseline episode logs remain local development evidence and are not part of the v0.1 release bundle.",
+  "model_controller": {
+    "controller_id": "codex-cli:gpt-5.6-sol:2bad43b08db9087c",
+    "programmatic_interface": "codex exec",
+    "successes": 2,
+    "tasks": 4,
+    "verifier_calls_by_task": {
+      "clv1-inv-amp-gain-bw": 8,
+      "clv1-noninv-amp-gain-bw": 8,
+      "clv1-sallen-key-cutoff-q": 4,
+      "clv1-diff-pair-gain-cmrr-current": 3
+    }
+  },
+  "fixed_topology_tpe": {
+    "controller_id": "fixed-tpe",
+    "successes": 4,
+    "tasks": 4,
+    "verifier_calls_by_task": {
+      "clv1-inv-amp-gain-bw": 8,
+      "clv1-noninv-amp-gain-bw": 4,
+      "clv1-sallen-key-cutoff-q": 3,
+      "clv1-diff-pair-gain-cmrr-current": 6
+    }
+  },
+  "paired_success_delta": {
+    "mean": -0.5,
+    "bootstrap_ci95": [
+      -1.0,
+      0.0
+    ]
+  },
+  "paired_verifier_call_saving_on_joint_successes": {
+    "n": 2,
+    "mean": 1.0,
+    "bootstrap_ci95": [
+      -1.0,
+      3.0
+    ]
+  },
+  "episode_end_hashes": {
+    "model": {
+      "clv1-inv-amp-gain-bw": "e0661028e880d4c806dcd1b5bbe198d3e289a0acf12ecefec993f3ac5c99eb7e",
+      "clv1-noninv-amp-gain-bw": "81c5b05330ce7fa2595b1a1450313f7f85056d8353638248804e0f7fc3a4b980",
+      "clv1-sallen-key-cutoff-q": "5789a092e9d27eb15c2dda959e49eacc548f377921040932209c2b3f20e0f4b0",
+      "clv1-diff-pair-gain-cmrr-current": "b50e2aea874d66cef598185c57e458c24c8f57f829ebeb648e5b585dabcd1933"
+    },
+    "fixed_topology_tpe": {
+      "clv1-inv-amp-gain-bw": "1cd9a24c517877aed5585aeabd34f9805d584ce4590524e77dd8ad8abd325744",
+      "clv1-noninv-amp-gain-bw": "7ffb96fc9bd8c753c320cebc693f8e1e757614cafbdf7911fd213373d4bc44f8",
+      "clv1-sallen-key-cutoff-q": "cd5c063a8b52ebb27c8e2680483b2c999ca1dead5f3b506ab7a9357f4b11618b",
+      "clv1-diff-pair-gain-cmrr-current": "b6960825ed70ef621096f24585add7927ebecb75c4dcdcc69dcedc05659ee043"
+    }
+  },
+  "decision": {
+    "design_harness": "go",
+    "claim": "The uncontaminated Codex controller solved 2/4 development tasks; fixed-topology TPE solved 4/4. No model-guided advantage was established.",
+    "generalization": "not established",
+    "policy_distillation": "not admitted",
+    "multi_turn_rlvr": "not admitted",
+    "autonomous_research": "not established"
+  },
+  "gate_reasons": [
+    "The earlier 4/4 one-call Codex result was discarded because the controller prompt leaked the fixed baseline template.",
+    "The benchmark has only four development tasks and no sealed topology- or regime-disjoint evaluation.",
+    "The uncontaminated Codex arm solved 2/4 while fixed TPE solved 4/4; paired success delta was -0.50 with 95% bootstrap CI [-1.0, 0.0].",
+    "The two arms had only two joint successes; Codex call saving was +1.0 with 95% bootstrap CI [-1.0, 3.0].",
+    "No SKY130 PDK, PVT campaign, Pareto comparison, or held-out design-rule validation was executed."
+  ]
+}

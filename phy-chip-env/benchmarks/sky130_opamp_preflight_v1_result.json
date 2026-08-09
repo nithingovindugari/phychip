@@ -1,0 +1,29 @@
+{
+  "schema": "phychip-sky130-preflight-v1",
+  "campaign_id": "phychip-sky130-opamp-v1",
+  "campaign_sha256": "2d63bb31d62035d7d27802ad459ff4273073c2bbf6b3c77bf5a83fc63cafaef4",
+  "ready": false,
+  "blockers": [
+    "prerequisite 'v0_1_release_locally_validated' is not satisfied",
+    "prerequisite 'design_agent_clears_m1' is not satisfied",
+    "prerequisite 'sealed_eval_manifest_frozen' is not satisfied",
+    "v0.1 release evidence SHA-256 is not pinned",
+    "design-agent M1 evidence SHA-256 is not pinned",
+    "sealed evaluation manifest SHA-256 is not pinned",
+    "SKY130 source_revision is not pinned to a 40-hex commit",
+    "no local PDK root was supplied",
+    "libs.tech/ngspice/sky130.lib.spice: expected SHA-256 is not pinned",
+    "unverified topology templates: sky130-folded-cascode, sky130-telescopic-cascode, sky130-two-stage-miller"
+  ],
+  "resolved_models": [],
+  "resolved_templates": [],
+  "sealed_eval_manifest": null,
+  "release_evidence": null,
+  "design_m1_evidence": null,
+  "pdk_source_revision": null,
+  "topology_ids": [
+    "sky130-telescopic-cascode",
+    "sky130-folded-cascode",
+    "sky130-two-stage-miller"
+  ]
+}
