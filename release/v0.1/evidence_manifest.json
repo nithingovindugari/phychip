@@ -215,13 +215,13 @@
       "specs": 48
     }
   },
-  "release_status": "draft_from_dirty_feature_branch",
+  "release_status": "built_from_clean_source_commit",
   "schema": "phychip-v0.1-evidence-manifest-v2",
   "source_git": {
-    "branch": "feature/autonomous-chip-research",
-    "dirty_path_count": 10,
-    "head": "3fcb6a0c777ad34b5281b8f7195af8aafe022049",
-    "working_tree_dirty": true,
-    "working_tree_state_sha256": "a46617dafb17b540121cb1ef2702013a1368066c40d06cfb069f0514d1b8f55f"
+    "branch": "public-v0.1-sanitized-source",
+    "dirty_path_count": 0,
+    "head": "3bce8bb52138dd59527aa71a837da29ca5681bdc",
+    "working_tree_dirty": false,
+    "working_tree_state_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
   }
 }
